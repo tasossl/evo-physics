@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evo Physics — Ιστορία της φυσικής</title>
+<script>
+/* Εφαρμογή του αποθηκευμένου skin πριν τη ζωγραφική (ίδιο κλειδί με τις προσομοιώσεις) */
+try{var s=localStorage.getItem('sim-skin');if(s)document.documentElement.dataset.skin=s;}catch(e){}
+</script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap');
+
+:root,:root[data-skin="blueprint"]{ color-scheme:dark; --bg:#0B1B30; --bg2:#10243D; --panel:#132A47; --panel2:#10243D; --grid:rgba(143,184,217,0.18); --gridStrong:#6E97BE; --line:#DCEEFF; --accent:#E8B84B; --accent2:#7DB8FF; --accent3:#4ADE80; --text:#F5F8FC; --textDim:#AFC3DA; --border:rgba(143,184,217,0.18); --track:#10243D; --shadowCol:rgba(232,184,75,0.18); --danger:#E0685A; --onAccent:#0B1B30; --radius:3px; --e1:#E8B84B; --e2:#FF6FCF; --et:#4ADE80; --blue:#7DB8FF; --c-ae:#FF9B54; --c-th:#C6A8FF; --c-s:#5EEAD4; --c-ag:#A3E635; }
+:root[data-skin="minimal"]{ color-scheme:light; --bg:#FFFFFF; --bg2:#F3F6FA; --panel:#FFFFFF; --panel2:#F3F6FA; --grid:rgba(31,45,61,0.08); --gridStrong:#B9C2CE; --line:#1F2D3D; --accent:#F0932B; --accent2:#2563EB; --accent3:#16A34A; --text:#1F2D3D; --textDim:#6B7686; --border:rgba(31,45,61,0.10); --track:#F3F6FA; --shadowCol:rgba(240,147,43,0.18); --danger:#D64545; --onAccent:#1F1300; --atext:#8A4F00; --radius:3px; --e1:#F0932B; --e2:#DB2777; --et:#16A34A; --blue:#2563EB; --c-ae:#7C3AED; --c-th:#0E7490; --c-s:#B45309; --c-ag:#BE123C; }
+:root[data-skin="classic"]{ --radius:4px; color-scheme:dark; --bg:#0d141c; --bg2:#101a24; --panel:#151f2a; --panel2:#1d2a37; --grid:rgba(229,236,243,0.06); --gridStrong:#2a3a4a; --line:#e5ecf3; --accent:#5b93ff; --accent2:#ab8cf5; --accent3:#34d399; --text:#e5ecf3; --textDim:#93a3b3; --border:#243342; --track:#0b1219; --shadowCol:rgba(91,147,255,0.25); --danger:#ff6a60; --onAccent:#0b1219; --e1:#f2ab26; --e2:#f472b6; --et:#34d399; --blue:#5c9bff; --c-ae:#ab8cf5; --c-th:#4cc9e0; --c-s:#e0b050; --c-ag:#bef264; }
+:root[data-skin="gr"]{ color-scheme:light; --bg:#F8FAFC; --bg2:#F1F5F9; --panel:#C9CFDA; --panel2:#E6EAF1; --grid:rgba(15,23,42,0.06); --gridStrong:#9AA7BB; --line:#0F172A; --accent:#F8B47A; --accent2:#2563EB; --accent3:#16A34A; --text:#0F172A; --textDim:#5B6A80; --border:#A9B3C4; --track:#FFFFFF; --shadowCol:rgba(0,0,0,0.12); --danger:#D64545; --onAccent:#1F1300; --atext:#8A4F00; --radius:8px; --e1:#D97706; --e2:#DB2777; --et:#16A34A; --blue:#2563EB; --c-ae:#EA580C; --c-th:#7C3AED; --c-s:#0E9AA7; --c-ag:#65A30D; --car:#F0932B; --st-track:#FFFFFF; --st-text:#0F172A; --st-dim:#5B6A80; --st-grid:rgba(15,23,42,0.07); --st-gridS:#B4BFCF; }
+:root[data-skin="n01"]{ color-scheme:light; --bg:#F8FAFC; --bg2:#F1F5F9; --panel:#FFFFFF; --panel2:#F1F5F9; --grid:rgba(15,23,42,0.06); --gridStrong:#9AAEC6; --line:#1B2A41; --accent:#2563EB; --accent2:#2563EB; --accent3:#15803D; --text:#0F172A; --textDim:#5B6A80; --border:#D5DCE6; --track:#E9EEF5; --shadowCol:rgba(0,0,0,0.14); --danger:#D64545; --onAccent:#FFFFFF; --radius:8px; --atext:#1D4ED8; --e1:#C27A0E; --e2:#D6336C; --et:#15803D; --blue:#2563EB; --c-ae:#D9600F; --c-th:#6A3DD0; --c-s:#0E8FA0; --c-ag:#4D7C0F; --car:#F0932B; --htext:#0F172A; --hdim:#5B6A80; --st-track:#FFFFFF; --st-text:#1B2A41; --st-dim:#5A6A82; --st-grid:rgba(31,45,61,0.08); --st-gridS:#9AAEC6; }
+:root[data-skin="n08"]{ color-scheme:light; --bg:#EAF2FB; --bg2:#EEF4FC; --panel:#DCE9F8; --panel2:#EEF4FC; --grid:rgba(15,23,42,0.06); --gridStrong:#9AAEC6; --line:#1B2A41; --accent:#2563EB; --accent2:#2563EB; --accent3:#15803D; --text:#0F2342; --textDim:#4A6285; --border:#B3C8E3; --track:#FFFFFF; --shadowCol:rgba(0,0,0,0.14); --danger:#D64545; --onAccent:#FFFFFF; --radius:8px; --atext:#1D4ED8; --e1:#C27A0E; --e2:#D6336C; --et:#15803D; --blue:#2563EB; --c-ae:#D9600F; --c-th:#6A3DD0; --c-s:#0E8FA0; --c-ag:#4D7C0F; --car:#F0932B; --htext:#0F172A; --hdim:#5B6A80; --st-track:#FFFFFF; --st-text:#1B2A41; --st-dim:#5A6A82; --st-grid:rgba(31,45,61,0.08); --st-gridS:#9AAEC6; }
+:root[data-skin="n12"]{ color-scheme:light; --bg:#F8FAFC; --bg2:#F1F5F9; --panel:#FFFFFF; --panel2:#F1F5F9; --grid:rgba(15,23,42,0.06); --gridStrong:#9AAEC6; --line:#1B2A41; --accent:#F0932B; --accent2:#F0932B; --accent3:#15803D; --text:#0F172A; --textDim:#5B6A80; --border:#D5DCE6; --track:#E9EEF5; --shadowCol:rgba(0,0,0,0.14); --danger:#D64545; --onAccent:#1F1300; --radius:8px; --atext:#8A4F00; --e1:#C27A0E; --e2:#D6336C; --et:#15803D; --blue:#2563EB; --c-ae:#D9600F; --c-th:#6A3DD0; --c-s:#0E8FA0; --c-ag:#4D7C0F; --car:#F0932B; --htext:#0F172A; --hdim:#5B6A80; --st-track:#FFFFFF; --st-text:#1B2A41; --st-dim:#5A6A82; --st-grid:rgba(31,45,61,0.08); --st-gridS:#9AAEC6; }
+:root[data-skin="n13"]{ color-scheme:light; --bg:#F8FAFC; --bg2:#E6EAF1; --panel:#C9CFDA; --panel2:#E6EAF1; --grid:rgba(15,23,42,0.06); --gridStrong:#9AAEC6; --line:#1B2A41; --accent:#F8B47A; --accent2:#F8B47A; --accent3:#15803D; --text:#0F172A; --textDim:#4A5870; --border:#A9B3C4; --track:#FFFFFF; --shadowCol:rgba(0,0,0,0.14); --danger:#D64545; --onAccent:#1F1300; --radius:8px; --atext:#8A4F00; --e1:#C27A0E; --e2:#D6336C; --et:#15803D; --blue:#2563EB; --c-ae:#D9600F; --c-th:#6A3DD0; --c-s:#0E8FA0; --c-ag:#4D7C0F; --car:#F0932B; --htext:#0B2A5B; --hdim:#3F5F8F; --st-track:#FFFFFF; --st-text:#1B2A41; --st-dim:#5A6A82; --st-grid:rgba(31,45,61,0.08); --st-gridS:#9AAEC6; }
+:root[data-skin="n15"]{ color-scheme:light; --bg:#EAF2FB; --bg2:#EEF4FC; --panel:#DCE9F8; --panel2:#EEF4FC; --grid:rgba(15,23,42,0.06); --gridStrong:#9AAEC6; --line:#1B2A41; --accent:#2563EB; --accent2:#2563EB; --accent3:#15803D; --text:#0F2342; --textDim:#4A6285; --border:#B3C8E3; --track:#FFFFFF; --shadowCol:rgba(0,0,0,0.14); --danger:#D64545; --onAccent:#FFFFFF; --radius:8px; --atext:#1D4ED8; --e1:#C27A0E; --e2:#D6336C; --et:#15803D; --blue:#2563EB; --c-ae:#D9600F; --c-th:#6A3DD0; --c-s:#0E8FA0; --c-ag:#4D7C0F; --car:#F0932B; --htext:#0F172A; --hdim:#5B6A80; --st-track:#FFFFFF; --st-text:#1B2A41; --st-dim:#5A6A82; --st-grid:rgba(31,45,61,0.08); --st-gridS:#9AAEC6; }
+:root[data-skin="n16"]{ color-scheme:light; --bg:#0A0A0C; --bg2:#E6EAF1; --panel:#C9CFDA; --panel2:#E6EAF1; --grid:rgba(255,255,255,0.05); --gridStrong:#9AAEC6; --line:#1B2A41; --accent:#111827; --accent2:#111827; --accent3:#15803D; --text:#0F172A; --textDim:#4A5870; --border:#A9B3C4; --track:#FFFFFF; --shadowCol:rgba(0,0,0,0.14); --danger:#D64545; --onAccent:#FFFFFF; --radius:8px; --atext:#111827; --e1:#C27A0E; --e2:#D6336C; --et:#15803D; --blue:#2563EB; --c-ae:#D9600F; --c-th:#6A3DD0; --c-s:#0E8FA0; --c-ag:#4D7C0F; --car:#F0932B; --htext:#F2F4F8; --hdim:#A8B2C2; --st-track:#FFFFFF; --st-text:#1B2A41; --st-dim:#5A6A82; --st-grid:rgba(31,45,61,0.08); --st-gridS:#9AAEC6; }
+:root[data-skin="n18"]{ color-scheme:dark; --bg:#0F172A; --bg2:#162033; --panel:#1E293B; --panel2:#162033; --grid:rgba(255,255,255,0.05); --gridStrong:#475569; --line:#E2E8F0; --accent:#38BDF8; --accent2:#38BDF8; --accent3:#4ADE80; --text:#E2E8F0; --textDim:#94A3B8; --border:#334155; --track:#0B1220; --shadowCol:rgba(0,0,0,0.14); --danger:#D64545; --onAccent:#0F172A; --radius:8px; --atext:#38BDF8; --e1:#FBBF24; --e2:#F472B6; --et:#4ADE80; --blue:#60A5FA; --c-ae:#FB923C; --c-th:#A78BFA; --c-s:#2DD4BF; --c-ag:#A3E635; --car:#F0932B; --htext:#F2F4F8; --hdim:#A8B2C2; --st-track:#0F172A; --st-text:#E2E8F0; --st-dim:#94A3B8; --st-grid:rgba(148,163,184,0.12); --st-gridS:#475569; }
+:root[data-skin="n23"]{ color-scheme:dark; --bg:#0B1B30; --bg2:#0F2342; --panel:#12294A; --panel2:#0F2342; --grid:rgba(255,255,255,0.05); --gridStrong:#9AAEC6; --line:#1B2A41; --accent:#E8B84B; --accent2:#E8B84B; --accent3:#15803D; --text:#F5F8FC; --textDim:#AFC3DA; --border:rgba(143,184,217,0.24); --track:#0B1B30; --shadowCol:rgba(0,0,0,0.14); --danger:#D64545; --onAccent:#1F1300; --radius:8px; --atext:#E8B84B; --e1:#C27A0E; --e2:#D6336C; --et:#15803D; --blue:#2563EB; --c-ae:#D9600F; --c-th:#6A3DD0; --c-s:#0E8FA0; --c-ag:#4D7C0F; --car:#F0932B; --htext:#F2F4F8; --hdim:#A8B2C2; --st-track:#FFFFFF; --st-text:#1B2A41; --st-dim:#5A6A82; --st-grid:rgba(31,45,61,0.08); --st-gridS:#9AAEC6; }
+:root{--atext:var(--accent);--htext:var(--text);--hdim:var(--textDim);}
+:root[data-skin="classic"],:root[data-skin="blueprint"],:root[data-skin="minimal"],:root[data-skin="gr"]{--htext:var(--text);--hdim:var(--textDim);}
+:root[data-skin="n16"]{--hacc:#F0932B;}
+:root[data-skin="g16"]{--hacc:#F8B47A;}
+:root[data-skin="n16"] .tab-btn.active{background:#F0932B;color:#1F1300;border-color:#F0932B;}
+:root[data-skin="g16"]{ color-scheme:light; --bg:#4B5058; --bg2:#41464E; --panel:#C9CFDA; --panel2:#E6EAF1; --grid:rgba(255,255,255,0.06); --gridStrong:#9AAEC6; --line:#1B2A41; --accent:#F8B47A; --accent2:#F8B47A; --accent3:#15803D; --text:#0F172A; --textDim:#4A5870; --border:#A9B3C4; --track:#FFFFFF; --shadowCol:rgba(0,0,0,0.14); --danger:#D64545; --onAccent:#1F1300; --radius:8px; --atext:#8A4F00; --e1:#C27A0E; --e2:#D6336C; --et:#15803D; --blue:#2563EB; --c-ae:#D9600F; --c-th:#6A3DD0; --c-s:#0E8FA0; --c-ag:#4D7C0F; --car:#F0932B; --htext:#F1F5F9; --hdim:#CBD5E1; --st-track:#D3D7DE; --st-text:#1B2A41; --st-dim:#5A6A82; --st-grid:rgba(31,45,61,0.08); --st-gridS:#9AAEC6; }
+:root[data-skin="n13"] .tile,:root[data-skin="n13"] .sim-btn,:root[data-skin="n13"] .cat-heading,:root[data-skin="g16"] .tile,:root[data-skin="g16"] .sim-btn,:root[data-skin="g16"] .cat-heading{--text:#E2E8F0;--textDim:#94A3B8;--panel:#1E293B;--panel2:#162033;--border:#334155;--atext:#F8B47A;}
+:root{
+  --accent-dim: color-mix(in srgb, var(--accent) 35%, transparent);
+  --accent-soft: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background: var(--bg);
+  background-image:
+    repeating-linear-gradient(var(--grid) 0 1px, transparent 1px 32px),
+    repeating-linear-gradient(90deg, var(--grid) 0 1px, transparent 1px 32px);
+  color: var(--htext);
+  font-family: 'Inter', sans-serif;
+  min-height:100vh;
+}
+
+@media (prefers-reduced-motion: reduce){ *{transition:none !important;} }
+
+.wrap{max-width: 1180px; margin:0 auto; padding: 22px 18px 60px;}
+
+header{
+  border-bottom: 1px solid var(--grid);
+  padding-bottom: 18px;
+  margin-bottom: 20px;
+  display:flex; align-items:flex-end; justify-content:space-between; gap:16px; flex-wrap:wrap;
+}
+h1{
+  font-family:'Oswald', sans-serif;
+  font-weight:600;
+  letter-spacing: 0.02em;
+  font-size: clamp(26px, 4.6vw, 38px);
+  margin: 0 0 4px 0;
+}
+h1 span{color: var(--hacc, var(--atext));}
+.byline{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:12px;
+  letter-spacing:0.04em;
+  color: var(--hdim);
+  margin-top:4px;
+}
+.subtitle{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:11.5px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color: var(--hdim);
+}
+.skin-wrap{display:flex;align-items:center;gap:8px;font-size:.82rem;font-weight:600;}
+.skin-select{
+  text-align:center;text-align-last:center;
+  background:var(--panel);color:var(--text);
+  border:1px solid var(--border);border-radius:var(--radius);
+  padding:8px 12px;font-family:'Inter',sans-serif;font-size:.85rem;
+  min-width:200px;max-width:100%;cursor:pointer;
+}
+.skin-select:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+
+/* search */
+.search-row{ margin: 20px 0 18px; }
+.search-box{ position:relative; max-width: 520px; }
+.search-box input{
+  width:100%;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family:'IBM Plex Mono', monospace;
+  font-size:14px;
+  padding: 13px 16px 13px 40px;
+  border-radius: var(--radius);
+  outline:none;
+}
+.search-box input::placeholder{color: var(--textDim);}
+.search-box input:focus-visible{outline:2px solid var(--accent); outline-offset:1px;}
+.search-box .icon{
+  position:absolute; left:13px; top:50%; transform:translateY(-50%);
+  color: var(--textDim); font-size:15px; pointer-events:none;
+}
+.result-count{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:11px; color: var(--hdim); margin-top:8px; letter-spacing:0.04em;
+}
+
+/* tabs */
+.tab-row{
+  display:flex; gap:16px; overflow-x:auto; padding-bottom:4px; margin-bottom:10px;
+  -ms-overflow-style:none; scrollbar-width:none;
+}
+.tab-row::-webkit-scrollbar{display:none;}
+.tab-btn{
+  flex:1 1 0; min-width:max-content; text-align:center;
+  font-family:'Oswald', sans-serif; font-weight:500; font-size:12.5px;
+  letter-spacing:0.04em; text-transform:uppercase;
+  padding:10px 16px; border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--panel); color: var(--textDim);
+  cursor:pointer; white-space:nowrap;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+.tab-btn:hover{border-color: var(--accent-dim); color: var(--text);}
+.tab-btn.active{background: var(--accent); color: var(--onAccent); border-color: var(--accent);}
+.tab-btn:focus-visible{outline: 2px solid var(--accent); outline-offset:2px;}
+
+.sub-tab-row{
+  display:none; gap:6px; margin: 4px 0 20px; padding: 12px;
+  background: var(--accent-soft);
+  border: 1px dashed var(--accent-dim);
+  border-radius: var(--radius);
+  flex-wrap:wrap; align-items:center;
+}
+.sub-tab-row.show{display:flex;}
+.sub-tab-row .lbl{
+  font-family:'IBM Plex Mono', monospace; font-size:10.5px; color: var(--hdim);
+  letter-spacing:0.06em; text-transform:uppercase; margin-right:4px;
+}
+.sub-btn{
+  font-family:'Oswald', sans-serif; font-weight:500; font-size:11.5px;
+  letter-spacing:0.03em; text-transform:uppercase;
+  padding:7px 13px; border-radius: var(--radius);
+  border: 1px solid var(--border); background: var(--panel); color: var(--textDim);
+  cursor:pointer; transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+.sub-btn:hover{border-color: var(--accent-dim); color: var(--text);}
+.sub-btn.active{background: var(--accent-dim); color: var(--text); border-color: var(--accent);}
+
+/* section heading */
+.section-title{
+  font-family:'IBM Plex Mono', monospace; font-size:11.5px; letter-spacing:0.1em;
+  text-transform:uppercase; color: var(--hdim); margin: 26px 0 12px;
+  display:flex; align-items:center; gap:10px;
+}
+.section-title::after{content:''; flex:1; height:1px; background: var(--grid);}
+
+/* category tiles */
+.tiles{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+@media (max-width:760px){ .tiles{grid-template-columns: repeat(2, 1fr);} }
+@media (max-width:480px){ .tiles{grid-template-columns: 1fr;} }
+.tile{
+  position:relative; text-align:left; cursor:pointer;
+  background: linear-gradient(180deg, var(--panel), var(--panel2));
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 20px 18px;
+  min-height: 160px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:14px;
+  transition: border-color 0.15s, transform 0.15s;
+  font: inherit;
+}
+.tile:hover{border-color: var(--accent); transform: translateY(-3px);}
+.tile:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+.tile-icon{display:block; width:44px; height:44px; color:var(--atext);}
+.tile-icon svg{width:100%; height:100%; fill:none; stroke:currentColor; stroke-width:1.4; stroke-linecap:round; stroke-linejoin:round;}
+.tile-text{display:flex; flex-direction:column; align-items:center; gap:4px;}
+.tile-name{
+  font-family:'Oswald', sans-serif; font-weight:600; font-size:20px;
+  letter-spacing:0.02em; line-height:1.2;
+}
+.tile-count{
+  font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.04em;
+  color: var(--textDim);
+}
+.tile.empty-cat .tile-count{opacity:.7;}
+
+/* back bar */
+.back-bar{display:none; align-items:center; gap:14px; margin: 6px 0 16px; flex-wrap:wrap;}
+.back-bar.show{display:flex;}
+.back-btn{
+  font-family:'Oswald', sans-serif; font-weight:500; font-size:12.5px;
+  letter-spacing:0.05em; text-transform:uppercase;
+  padding:9px 14px; border-radius: var(--radius);
+  border: 1px solid var(--border); background: var(--panel); color: var(--text); cursor:pointer;
+}
+.back-btn:hover{border-color: var(--accent);}
+.back-title{font-family:'Oswald', sans-serif; font-weight:600; font-size:22px;}
+
+/* grid */
+.grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 16px; }
+.grid[hidden]{display:none;}
+
+.card{
+  background: linear-gradient(180deg, var(--panel), var(--panel2));
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  display:flex; flex-direction:column; gap:10px;
+  transition: border-color 0.15s, transform 0.15s;
+}
+.card:hover{border-color: var(--accent); transform: translateY(-2px);}
+.card-title{
+  font-family:'Oswald', sans-serif; font-weight:600; font-size:16.5px;
+  color: var(--text); margin:0; line-height:1.3;
+}
+.card-desc{ font-size:13px; line-height:1.5; color: var(--textDim); flex:1; }
+
+.badge-row, .tag-row{ display:flex; flex-wrap:wrap; gap:5px; }
+.badge{
+  font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:0.03em;
+  padding:3px 8px; border-radius:12px;
+  background: color-mix(in srgb, var(--gridStrong) 22%, transparent);
+  color: var(--text); border: 1px solid var(--border);
+}
+.tag{
+  font-family:'IBM Plex Mono', monospace; font-size:10px;
+  padding:3px 8px; border-radius: var(--radius);
+  background: transparent; color: var(--atext);
+  border: 1px solid var(--accent-dim); cursor:pointer;
+}
+.tag:hover{background: var(--accent-soft);}
+
+.card-open{
+  margin-top:4px; display:inline-flex; align-items:center; justify-content:center; gap:6px;
+  font-family:'Oswald', sans-serif; font-weight:500; font-size:12.5px;
+  letter-spacing:0.05em; text-transform:uppercase; text-decoration:none;
+  background: var(--accent); color: var(--onAccent);
+  padding: 10px 14px; border-radius: var(--radius);
+  transition: filter 0.15s;
+}
+.card-open:hover{filter:brightness(1.1);}
+
+.empty{
+  grid-column: 1 / -1; text-align:center; padding: 50px 20px;
+  color: var(--textDim);
+  font-family:'IBM Plex Mono', monospace; font-size:13px;
+  border: 1px dashed var(--border); border-radius: var(--radius);
+}
+
+footer{
+  margin-top: 40px; padding-top:16px; border-top: 1px solid var(--grid);
+  font-family:'IBM Plex Mono', monospace; font-size:10.5px; color: var(--hdim);
+  text-align:center; letter-spacing:0.04em;
+}
+
+/* ===== Στρογγυλεμένο UI · κουμπιά με μόνο τον τίτλο ===== */
+:root{--r-pill:999px;--r-box:16px;}
+.search-box input{border-radius:var(--r-pill);}
+.skin-select{border-radius:var(--r-pill);}
+.tab-row{flex-wrap:nowrap;gap:6px;justify-content:flex-start;padding:2px 2px 6px;margin-bottom:12px;}
+@supports (justify-content: safe center){ .tab-row{justify-content:safe center;} }
+.tab-btn{flex:0 0 auto;padding:6px 13px;font-size:11.5px;border-radius:var(--r-pill);letter-spacing:.03em;}
+.sub-tab-row{border-radius:var(--r-box);width:fit-content;max-width:100%;margin:4px auto 16px;justify-content:center;}
+.sub-btn{border-radius:var(--r-pill);padding:5px 12px;font-size:11px;}
+.tile{border-radius:var(--r-box);}
+.cat-heading{display:flex;align-items:center;justify-content:center;gap:10px;width:fit-content;max-width:100%;margin:8px auto 18px;padding:9px 24px;font-family:'Oswald',sans-serif;font-weight:600;font-size:20px;letter-spacing:.02em;color:var(--text);background:var(--panel);border:1px solid var(--accent);border-radius:var(--r-box);}
+.cat-heading[hidden]{display:none;}
+.grid{grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;}
+.ico{width:34px;height:34px;flex:none;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--atext);}
+.ico-sm{width:26px;height:26px;}
+.sim-btn:hover .ico{color:var(--onAccent);}
+.sim-btn{display:flex;flex-direction:column;gap:8px;align-items:center;justify-content:center;text-align:center;min-height:96px;padding:14px 18px;font-family:'Oswald',sans-serif;font-weight:500;font-size:15.5px;line-height:1.3;letter-spacing:.02em;text-decoration:none;color:var(--text);background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--accent-dim);border-radius:var(--r-box);transition:background .15s,color .15s,border-color .15s,transform .15s;}
+.sim-btn:hover{background:var(--accent);color:var(--onAccent);border-color:var(--accent);transform:translateY(-2px);}
+.sim-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.wrap{max-width:1180px;}
+.tl{display:flex;gap:0;overflow-x:auto;padding:6px 4px 14px;margin:4px 0 14px;scrollbar-width:thin;}
+.tl-item{flex:0 0 auto;width:92px;text-align:center;background:none;border:0;cursor:pointer;color:var(--textDim);font-family:'IBM Plex Mono',monospace;font-size:10.5px;padding:0;position:relative;}
+.tl-item::before{content:"";position:absolute;left:0;right:0;top:9px;height:1px;background:var(--accent-dim);}
+.tl-item:first-child::before{left:50%;}
+.tl-item:last-child::before{right:50%;}
+.tl-dot{position:relative;display:block;width:11px;height:11px;margin:4px auto 8px;border-radius:50%;background:var(--bg);border:2px solid var(--accent);transition:background .15s,transform .15s;}
+.tl-item:hover .tl-dot,.tl-item:focus-visible .tl-dot{background:var(--accent);transform:scale(1.3);}
+.tl-item:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:8px;}
+.tl-y{display:block;color:var(--htext);}
+.tl-n{display:block;font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:.02em;color:var(--hdim);margin-top:2px;}
+.era-note{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--hdim);text-align:center;margin:-10px 0 16px;letter-spacing:.04em;}
+.sci-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin-bottom:26px;}
+.sci{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding:20px 16px 18px;cursor:pointer;font:inherit;color:var(--text);background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--accent-dim);border-radius:var(--r-box);transition:border-color .15s,transform .15s;}
+.sci:hover{border-color:var(--accent);transform:translateY(-3px);}
+.sci:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.sci .av{width:76px;height:76px;color:var(--atext);}
+.sci .emb{position:absolute;top:12px;right:12px;width:22px;height:22px;color:var(--atext);opacity:.8;}
+.sci-name{font-family:'Oswald',sans-serif;font-weight:600;font-size:18px;letter-spacing:.02em;margin-top:4px;color:var(--text);}
+.sci-years{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--textDim);letter-spacing:.04em;}
+.sci-tag{font-size:13px;line-height:1.45;color:var(--textDim);}
+.svg-i{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.empty{text-align:center;font-family:'IBM Plex Mono',monospace;color:var(--hdim);padding:40px 0;}
+.detail{display:none;}
+.detail.on{display:block;}
+.back{display:inline-flex;align-items:center;gap:6px;margin-bottom:14px;padding:6px 14px;font-family:'Oswald',sans-serif;font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--textDim);background:var(--panel);border:1px solid var(--border);border-radius:var(--r-pill);cursor:pointer;}
+.back:hover{border-color:var(--accent);color:var(--text);}
+.back:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.d-grid{display:grid;grid-template-columns:260px 1fr;gap:18px;align-items:start;}
+.d-side{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--accent-dim);border-radius:var(--r-box);padding:22px 18px;text-align:center;position:sticky;top:14px;}
+.d-side .av{width:130px;height:130px;color:var(--atext);}
+.d-name{font-family:'Oswald',sans-serif;font-weight:600;font-size:24px;letter-spacing:.02em;margin:8px 0 2px;color:var(--text);}
+.d-name span{color:var(--atext);}
+.d-meta{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--textDim);line-height:1.7;}
+.chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:12px;}
+.chip{font-family:'IBM Plex Mono',monospace;font-size:11px;padding:3px 10px;border-radius:var(--r-pill);color:var(--atext);border:1px solid var(--accent-dim);}
+.d-main{background:var(--panel);border:1px solid var(--border);border-radius:var(--r-box);padding:16px 18px 20px;min-width:0;}
+.d-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
+.d-body{color:var(--text);font-size:15px;line-height:1.7;}
+.d-body p{margin:0 0 12px;}
+.quote{margin:14px 0 4px;padding:10px 14px;border-left:3px solid var(--accent);background:var(--accent-soft);border-radius:0 var(--r-box) var(--r-box) 0;color:var(--text);font-size:14px;line-height:1.6;}
+.disc{display:grid;gap:10px;}
+.disc-i{display:grid;grid-template-columns:78px 1fr;gap:12px;padding:12px 14px;background:var(--panel2);border:1px solid var(--border);border-radius:var(--r-box);}
+.disc-y{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--atext);font-weight:600;}
+.disc-t{font-family:'Oswald',sans-serif;font-weight:500;font-size:16px;letter-spacing:.02em;margin-bottom:2px;}
+.disc-d{font-size:13.5px;line-height:1.55;color:var(--textDim);}
+.exp-h{font-family:'Oswald',sans-serif;font-weight:600;font-size:18px;margin:0 0 6px;display:flex;align-items:center;gap:8px;}
+.exp-h .svg-i{width:24px;height:24px;color:var(--atext);}
+.stage{margin:12px 0 8px;border:1px solid var(--border);border-radius:var(--r-box);overflow:hidden;background:var(--track);}
+.stage canvas{display:block;width:100%;height:auto;}
+.ctl{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:8px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--textDim);}
+.ctl button{font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:.04em;text-transform:uppercase;padding:6px 14px;border-radius:var(--r-pill);border:1px solid var(--border);background:var(--panel2);color:var(--text);cursor:pointer;}
+.ctl button:hover{border-color:var(--accent);}
+.ctl button:focus-visible,.ctl input:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.ctl input[type=range]{accent-color:var(--accent);width:170px;}
+.readout{margin-left:auto;color:var(--htext);}
+.soon{padding:26px 16px;text-align:center;border:1px dashed var(--accent-dim);border-radius:var(--r-box);background:var(--accent-soft);color:var(--textDim);font-family:'IBM Plex Mono',monospace;font-size:12.5px;}
+.partof{margin:46px 0 4px;border-top:1px solid var(--grid);padding-top:22px;}
+.po-h{display:flex;align-items:center;gap:14px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.3em;color:var(--hdim);text-transform:uppercase;margin-bottom:18px;}
+.po-h::before,.po-h::after{content:"";flex:1;height:1px;background:var(--grid);}
+.po-row{display:flex;justify-content:center;gap:clamp(14px,5vw,64px);flex-wrap:wrap;}
+.po{display:flex;flex-direction:column;align-items:center;gap:8px;text-decoration:none;color:var(--htext);min-width:104px;}
+.po-c{width:62px;height:62px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--panel);border:1px solid var(--border);color:var(--atext);transition:border-color .15s,transform .15s;}
+.po-c .svg-i{width:34px;height:34px;}
+.po:hover .po-c,.po:focus-visible .po-c{border-color:var(--accent);transform:translateY(-2px);}
+.po:focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:12px;}
+.po.cur .po-c{border:2px solid var(--accent);}
+.po-n{font-family:'Oswald',sans-serif;font-weight:600;font-size:15px;letter-spacing:.02em;}
+.po-n span{color:var(--atext);}
+.po-s{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--hdim);text-align:center;}
+@media (max-width:760px){.d-grid{grid-template-columns:1fr;}.d-side{position:static;}.disc-i{grid-template-columns:1fr;gap:4px;}}
+
+.wrap{padding-bottom:150px;}
+.partof{position:fixed;left:0;right:0;bottom:0;z-index:30;margin:0;padding:7px 12px 9px;background:var(--bg);border-top:1px solid var(--border);}
+.po-h{font-size:10px;margin-bottom:6px;letter-spacing:.3em;}
+.po-row{gap:clamp(10px,4vw,56px);}
+.po{min-width:92px;gap:4px;}
+.po-c{width:42px;height:42px;}
+.po-c .svg-i{width:24px;height:24px;}
+.po-n{font-size:12.5px;}
+.po-s{font-size:10px;}
+@media (max-height:640px){.po-s{display:none;}.wrap{padding-bottom:120px;}}
+
+body{background-attachment:fixed;}
+.tl{position:sticky;top:0;z-index:25;margin-top:0;padding-top:10px;background:var(--bg);background-image:repeating-linear-gradient(var(--grid) 0 1px, transparent 1px 32px),repeating-linear-gradient(90deg, var(--grid) 0 1px, transparent 1px 32px);background-attachment:fixed;}
+
+html{scrollbar-color:var(--accent) var(--bg2);scrollbar-width:auto;}
+*{scrollbar-color:var(--accent) transparent;}
+::-webkit-scrollbar{width:12px;height:10px;}
+::-webkit-scrollbar-track{background:var(--bg2);}
+::-webkit-scrollbar-thumb{background:var(--accent);border-radius:999px;border:2px solid var(--bg2);}
+::-webkit-scrollbar-thumb:hover{background:var(--atext);}
+.tab-row::-webkit-scrollbar{display:none;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Evo <span>Physics</span></h1>
+      <div class="subtitle">Η ιστορία και η εξέλιξη της φυσικής · από την αρχαιότητα έως σήμερα</div>
+      <div class="byline">Σλάβης Τάσος</div>
+    </div>
+    <label class="skin-wrap"><select class="skin-select" id="skinSel" aria-label="Skins"></select></label>
+  </header>
+
+  <div id="listView">
+    <div class="search-row">
+      <div class="search-box">
+        <span class="icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Αναζήτηση (π.χ. Νεύτων, βαρύτητα, ραδιενέργεια)...">
+      </div>
+    </div>
+    <div class="tab-row" id="tabRow"></div>
+    <div class="tl" id="tl" aria-label="Χρονογραμμή"></div>
+    <div id="scis"></div>
+  </div>
+
+  <div class="detail" id="detailView"></div>
+
+  <div class="partof">
+    <div class="po-h">Part of</div>
+    <div class="po-row" id="poRow"></div>
+  </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const norm = s => (s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+const SVG = (inner, cls, vb) => '<svg class="'+(cls||'svg-i')+'" viewBox="'+(vb||'0 0 24 24')+'" aria-hidden="true">'+inner+'</svg>';
+
+const ERAS = [
+  {id:'antiquity', n:'Αρχαιότητα', r:'έως τον 5ο αι. μ.Χ.', e:'aristotle'},
+  {id:'medieval', n:'Μεσαίωνας', r:'5ος – 15ος αι.', e:'alhazen'},
+  {id:'revolution', n:'Επιστημονική επανάσταση', r:'16ος – 17ος αι.', e:'galileo'},
+  {id:'classical', n:'Κλασική φυσική', r:'18ος – 19ος αι.', e:'maxwell'},
+  {id:'modern', n:'Σύγχρονη φυσική', r:'1900 – 1950', e:'bohr'},
+  {id:'contemporary', n:'Η φυσική σήμερα', r:'1950 – σήμερα', e:'hawking'}
+];
+
+const EMB = {
+  thales:'<path d="M3 20 12 5l9 15z"/><circle cx="19" cy="5.5" r="1.8"/>',
+  aristotle:'<path d="M5 5h11a3 3 0 0 1 3 3v11H8a3 3 0 0 1-3-3z"/><path d="M9 9h6M9 13h6"/>',
+  archimedes:'<path d="M3 14 21 9"/><path d="M12 11.5 8.5 20h7z"/>',
+  eratosthenes:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c4 4 4 14 0 18M12 3c-4 4-4 14 0 18"/>',
+  alhazen:'<path d="M2 12c3-5 7-7 10-7s7 2 10 7c-3 5-7 7-10 7s-7-2-10-7z"/><circle cx="12" cy="12" r="3"/>',
+  copernicus:'<circle cx="12" cy="12" r="2.4"/><circle cx="12" cy="12" r="8.5"/><circle cx="20.5" cy="12" r="1.3"/>',
+  galileo:'<path d="M3 15 15 6l2 3L5 18z"/><path d="M17 9l4-2M8 19l-2 3M10 19l2 3"/>',
+  kepler:'<ellipse cx="12" cy="12" rx="9.5" ry="6"/><circle cx="8" cy="12" r="1.5"/>',
+  newton:'<path d="M4 19 10 6l6 13z"/><path d="M1 11h6M13 9l8-3M13 12l8 0M13 15l8 3"/>',
+  faraday:'<path d="M3 12c0-5 4-5 4 0s4 5 4 0 4-5 4 0 4 5 4 0"/><path d="M3 19h18"/>',
+  maxwell:'<path d="M2 12c2-8 4-8 6 0s4 8 6 0 4-8 6 0"/><path d="M2 12h20" stroke-dasharray="1.5 3"/>',
+  curie:'<circle cx="12" cy="12" r="2"/><path d="M12 10V4M13.7 13l5.2 3M10.3 13l-5.2 3"/><circle cx="12" cy="12" r="9.5"/>',
+  einstein:'<path d="M3 8c6 3 12 3 18 0M3 14c6 3 12 3 18 0M7 4c1 6 1 10 0 16M17 4c-1 6-1 10 0 16"/>',
+  rutherford:'<path d="M2 5c6 0 11 1 13 7"/><circle cx="15" cy="14" r="2.4" fill="currentColor" stroke="none"/><path d="M2 19c5 0 8-1 10-3"/>',
+  bohr:'<ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><circle cx="12" cy="12" r="1.8" fill="currentColor" stroke="none"/>',
+  hawking:'<circle cx="12" cy="12" r="4"/><ellipse cx="12" cy="12" rx="10" ry="3.5"/>'
+};
+
+const AV = {
+  thales:'<path d="M16.5 14.500c1.500-6 13.500-6 15 0M17.500 21c1 6 12 6 13 0M12 38l21-8"/>',
+  aristotle:'<path d="M16 14c3-5.500 13-5.500 16 0M16.500 20c0 5 2 11 7.500 12 5.500-1 7.500-7 7.500-12M12 39l19-9"/>',
+  archimedes:'<path d="M16 17c-1.500-2-1.500-4 0-6M32 17c1.500-2 1.500-4 0-6M17.500 21c1 5.500 12 5.500 13 0M20 23.500q4 2 8 0"/>',
+  eratosthenes:'<path d="M16.500 14c2-6 13-6 15 0M20.500 24c1 2.500 6 2.500 7 0M22 11l2-2 2 2"/>',
+  alhazen:'<path d="M15.500 15c0-9 17-9 17 0M16 15.500h16M17.500 12q6.500-3 13 0M17 20c0 9 14 9 14 0"/>',
+  copernicus:'<path d="M14 14.500h20M17 14.500c0-6.500 14-6.500 14 0M16 16v7M32 16v7M14 34c4 3.500 16 3.500 20 0"/>',
+  galileo:'<path d="M16 14c-2.500 6-1.500 14 1 17M32 14c2.500 6 1.500 14-1 17M19.500 21.500q4.500-2 9 0M22 24.500c1 3 3 3 4 0M14 36h20"/>',
+  kepler:'<path d="M13.500 13h21M16.500 13c0-6 15-6 15 0M16 15v6M32 15v6M12 37l2-2.500 2 2.500 2-2.500 2 2.500 2-2.500 2 2.500 2-2.500 2 2.500 2-2.500 2 2.500 2-2.500 2 2.500"/>',
+  newton:'<path d="M14.500 21c-2.500-9 2-15 9.500-15s12 6 9.500 15"/><circle cx="14" cy="24" r="2.400"/><circle cx="34" cy="24" r="2.400"/><path d="M21.500 29.500l2.500 5 2.500-5"/>',
+  faraday:'<path d="M16 15c4-6 12-6 16 0M16 15c4-1 9-3 12-5.500M16 18v5M32 18v5M20 33l4 2.500 4-2.500-4-2.500z"/>',
+  maxwell:'<path d="M16 14c2-6 14-6 16 0M16.500 19c0 9.500 15 9.500 15 0M20 22.500q4 2 8 0"/>',
+  curie:'<path d="M16 15c2-5.500 14-5.500 16 0M18 28v11M30 28v11"/><circle cx="24" cy="8" r="3.300"/>',
+  einstein:'<path d="M15 12c-4.500 0-5.500-4.500-2-6.500M33 12c4.500 0 5.500-4.500 2-6.500M18.500 9.500c-2.500-3.500 1-6.500 3.500-4.500M29.500 9.500c2.500-3.500-1-6.500-3.500-4.500M24 8.500c-1-4 4.500-4.500 4-1M18.500 22q5.500 3.500 11 0"/>',
+  rutherford:'<path d="M16 14.500c3-5 13-5 16 0M17.500 22.500q6.500 3.500 13 0M24 28v8"/>',
+  bohr:'<path d="M16 14.500c4-5.500 12-5.500 16 0M20.500 10.500l-1.500 4M24 28.500l-2 3.500 2 4.500 2-4.500z"/>',
+  hawking:'<circle cx="20.500" cy="18" r="2.800"/><circle cx="27.500" cy="18" r="2.800"/><path d="M23.300 18h1.400M17 12.500c3-2 11-2 14 0"/>'
+};
+const TR = {
+  beard:'<path d="M16.500 20c0 10 15 10 15 0"/>',
+  wig:'<path d="M14.500 21c-2.500-9 2-15 9.500-15s12 6 9.500 15"/><circle cx="14" cy="24" r="2.400"/><circle cx="34" cy="24" r="2.400"/>',
+  wild:'<path d="M24 6V2.500M17 8l-3-2.500M31 8l3-2.500M13 14l-3.500-1M35 14l3.500-1"/>',
+  bun:'<circle cx="24" cy="7" r="3.300"/>',
+  cap:'<path d="M14 14.500h20M17.500 14.500c0-7 13-7 13 0"/>',
+  turban:'<path d="M15.500 15c0-9 17-9 17 0M16 15.500h16"/>',
+  glasses:'<circle cx="20.500" cy="18" r="2.600"/><circle cx="27.500" cy="18" r="2.600"/><path d="M23.100 18h1.800"/>',
+  moustache:'<path d="M19 22q5 2.500 10 0"/>',
+  hair:'<path d="M16 14.500c3-5.500 13-5.500 16 0"/>',
+  bald:'<path d="M16 17c-1.500-2-1.500-4 0-6M32 17c1.500-2 1.500-4 0-6"/>',
+  plain:''
+};
+function avatar(s){
+  const em = EMB[s.em||s.id]||'', g = s.av==='ghost';
+  const body = g ? '<path d="M13 41V22a11 11 0 0 1 22 0v19l-3.700-3-3.600 3-3.700-3-3.700 3-3.600-3z" stroke-dasharray="3 2.200"/><circle cx="20" cy="22" r="1.800" fill="currentColor" stroke="none"/><circle cx="28" cy="22" r="1.800" fill="currentColor" stroke="none"/>' :
+    '<circle cx="24" cy="18" r="8"/><path d="M9.500 40a14.500 14.500 0 0 1 29 0"/>'+(AV[s.id]||TR[s.av]||'');
+  return '<svg class="av svg-i" viewBox="0 0 48 48" role="img" aria-hidden="true"><circle cx="24" cy="24" r="22.500" stroke-width="1" opacity=".5"/>'+body+'<circle cx="35" cy="36" r="7.500" style="fill:var(--panel)" stroke-width="1.200"/><g transform="translate(29 30) scale(.5)" stroke-width="2.200">'+em+'</g></svg>';
+}
+function mk(id,n,yr,b,place,era,av,em,tag,bio,dt,dd){
+  return {id,n,ln:'',yr,b,place,era,av,em,ghost:av==='ghost',tag,tags:[],bio:[bio],q:'',disc:[{y:yr.replace(/^~/,'~').split(' – ')[0],t:dt,d:dd}],ex:{t:dt,d:'',a:null}};
+}
+Object.assign(EMB, {
+  lyre:'<path d="M7 5c0 9 10 9 10 0M12 5v15M5 20h14M9 7v6M15 7v6"/>',
+  atomd:'<circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="9" stroke-dasharray="3 3"/>',
+  gear:'<circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="7"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/>',
+  compass:'<circle cx="12" cy="12" r="9"/><path d="M16 8l-3 5-5 3 3-5z"/>',
+  steam:'<path d="M6 20h12M8 20v-7h8v7M9 10c0-2 2-2 2-4M14 10c0-2 2-2 2-4"/>',
+  gauge:'<circle cx="12" cy="12" r="9"/><path d="M12 12l4-4M12 6v1M6 12h1M18 12h-1"/>',
+  spring:'<path d="M12 3v3l-5 2 10 3-10 3 10 3-5 2v3"/>',
+  bolt:'<path d="M13 2 5 13h6l-1 9 8-11h-6z"/>',
+  bulb:'<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.500 11c.7.7 1 1.500 1 2.500h5c0-1 .3-1.800 1-2.500A6 6 0 0 0 12 3z"/>',
+  magnet:'<path d="M5 3v9a7 7 0 0 0 14 0V3h-4v9a3 3 0 0 1-6 0V3z"/>',
+  battery:'<rect x="3" y="8" width="16" height="9" rx="2"/><path d="M21 11v3M8 11v3M6.500 12.500h3"/>',
+  lens:'<path d="M12 3c5 4 5 14 0 18-5-4-5-14 0-18z"/><path d="M3 12h18"/>',
+  radio:'<circle cx="12" cy="14" r="2"/><path d="M8 10a5.500 5.500 0 0 1 8 0M5 7a10 10 0 0 1 14 0M12 16v5"/>',
+  xray:'<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 8h6M12 8v11M8 13h8"/>',
+  orbit:'<circle cx="12" cy="12" r="2"/><path d="M3 12c4-8 14-8 18 0-4 8-14 8-18 0z"/>',
+  prob:'<path d="M2 12c3-9 5-9 7 0s5 9 7 0 3-5 6 0"/><path d="M2 20h20"/>',
+  uncert:'<circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="7" stroke-dasharray="1.500 2.500"/><circle cx="12" cy="12" r="10" stroke-dasharray="1 3.500"/>',
+  expand:'<circle cx="9" cy="15" r="2"/><circle cx="17" cy="7" r="1.500"/><path d="M12 12l7-7M15 5h4v4"/>',
+  fission:'<circle cx="12" cy="12" r="3"/><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="12" cy="20" r="2"/><path d="M10 10 6.500 7.500M14 10l3.500-2.500M12 15v3"/>',
+  chip:'<rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 3v3M12 3v3M15 3v3M9 18v3M12 18v3M15 18v3M3 9h3M3 12h3M3 15h3M18 9h3M18 12h3M18 15h3"/>',
+  laser:'<rect x="2" y="9" width="8" height="6" rx="1"/><path d="M10 12h12M18 9l4 3-4 3"/>',
+  pulsar:'<circle cx="12" cy="12" r="2.500"/><path d="M12 2v6M12 16v6M5 5l3 3M19 19l-3-3"/>',
+  quark:'<circle cx="8" cy="9" r="3"/><circle cx="16" cy="9" r="3"/><circle cx="12" cy="16" r="3"/>',
+  tunnel:'<path d="M12 3v9M9 12l3 4 3-4"/><path d="M3 20c3-3 6-3 9 0s6 3 9 0"/>',
+  sclev:'<path d="M4 20h16M7 14h10v-3H7z"/><path d="M8 7c1-2 2-2 4 0s3 2 4 0"/>',
+  bec:'<circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="9"/>',
+  hex:'<path d="M12 3l8 4.500v9L12 21l-8-4.500v-9z"/>',
+  gwave:'<path d="M2 12h5l2-6 3 12 3-12 2 6h5"/>',
+  higgs:'<circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="9"/><path d="M12 3v6M12 15v6M3 12h6M15 12h6"/>',
+  glasses:'<circle cx="7" cy="14" r="4"/><circle cx="17" cy="14" r="4"/><path d="M11 14h2M3 14l-1-5M21 14l1-5"/>',
+  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  cycle:'<path d="M5 8h14M5 16h14"/><path d="M5 8c-3 2-3 6 0 8M19 8c3 2 3 6 0 8"/>',
+  scale:'<path d="M12 4v16M5 20h14M4 8h16"/><path d="M4 8l-2 6h4zM20 8l-2 6h4z"/>'
+});
+const MORE = [];
+
+const SCI = [
+ {id:'thales', n:'Θαλής', ln:'ο Μιλήσιος', yr:'~624 – 546 π.Χ.', b:-624, place:'Μίλητος, Ιωνία', era:'antiquity', av:'beard',
+  tag:'Αναζητά φυσικές εξηγήσεις για τα φαινόμενα', tags:['ηλεκτρισμός','μαγνητισμός','γεωμετρία'],
+  bio:['Ο Θαλής θεωρείται ο πρώτος που αναζήτησε εξηγήσεις των φυσικών φαινομένων στη φύση και όχι στη μυθολογία. Έβλεπε το νερό ως αρχική ουσία των πάντων.','Σύμφωνα με την παράδοση, μέτρησε το ύψος μιας πυραμίδας από το μήκος της σκιάς της και παρατήρησε ότι το κεχριμπάρι, όταν το τρίψεις, έλκει ελαφρά αντικείμενα.'],
+  q:'Η φύση εξηγείται με φυσικά αίτια, όχι με θεούς.',
+  disc:[{y:'~600 π.Χ.', t:'Έλξη από τριβή κεχριμπαριού', d:'Πρώτη καταγεγραμμένη παρατήρηση του στατικού ηλεκτρισμού (το ήλεκτρο είναι το κεχριμπάρι).'},{y:'~600 π.Χ.', t:'Ύψος πυραμίδας από τη σκιά', d:'Όταν η σκιά ενός ραβδιού ισούται με το ύψος του, η σκιά της πυραμίδας ισούται με το δικό της ύψος.'}],
+  ex:{t:'Το κεχριμπάρι έλκει', d:'Τρίβεις ένα κομμάτι κεχριμπάρι με ύφασμα και πλησιάζεις μικρά κομμάτια χαρτί: τα έλκει.', a:null}},
+ {id:'aristotle', n:'Αριστοτέλης', ln:'', yr:'384 – 322 π.Χ.', b:-384, place:'Στάγειρα · Αθήνα', era:'antiquity', av:'beard',
+  tag:'Η πρώτη συστηματική «Φυσική»', tags:['κίνηση','στοιχεία','γεωκεντρικό'],
+  bio:['Ο Αριστοτέλης έγραψε τα «Φυσικά», την πρώτη συστηματική πραγματεία για την κίνηση και τη φύση. Δίδαξε ότι όλα τα σώματα αποτελούνται από τέσσερα στοιχεία και ότι κάθε κίνηση χρειάζεται συνεχή αιτία.','Το γεωκεντρικό του σύστημα και η άποψη ότι τα βαρύτερα σώματα πέφτουν ταχύτερα επικράτησαν επί σχεδόν δύο χιλιετίες, μέχρι να τις αμφισβητήσουν ο Γαλιλαίος και ο Νεύτων.'],
+  q:'Οι ιδέες του αποτέλεσαν το σημείο εκκίνησης που η νεότερη φυσική κλήθηκε να ανατρέψει.',
+  disc:[{y:'~340 π.Χ.', t:'Φυσικά', d:'Πραγματεία για την κίνηση, τον χώρο, τον χρόνο και τα αίτια των φαινομένων.'},{y:'~340 π.Χ.', t:'Γεωκεντρικό σύστημα', d:'Η Γη ακίνητη στο κέντρο και οι σφαίρες των ουρανίων σωμάτων γύρω της.'}],
+  ex:{t:'Βαριά και ελαφριά σώματα', d:'Η αριστοτελική άποψη ότι το βαρύτερο πέφτει ταχύτερα διαψεύστηκε αιώνες αργότερα με πειράματα πτώσης.', a:null}},
+ {id:'archimedes', n:'Αρχιμήδης', ln:'ο Συρακούσιος', yr:'~287 – 212 π.Χ.', b:-287, place:'Συρακούσες', era:'antiquity', av:'beard',
+  tag:'Άνωση, μοχλός και κέντρο βάρους', tags:['άνωση','μοχλός','υδροστατική'],
+  bio:['Ο Αρχιμήδης συνέδεσε τα μαθηματικά με την εφαρμοσμένη φυσική. Διατύπωσε την αρχή της άνωσης, μελέτησε τον μοχλό και το κέντρο βάρους και σχεδίασε μηχανές, όπως ο κοχλίας για άντληση νερού.','Η παράδοση λέει ότι ανακάλυψε την αρχή της άνωσης μπαίνοντας στο λουτρό και φώναξε «Εύρηκα», όταν έλυσε το πρόβλημα του στέμματος του βασιλιά Ιέρωνα.'],
+  q:'Δώσε μου ένα σημείο στήριξης και θα κινήσω τη Γη.',
+  disc:[{y:'~250 π.Χ.', t:'Αρχή του Αρχιμήδη', d:'Ένα σώμα που βυθίζεται σε υγρό δέχεται άνωση ίση με το βάρος του υγρού που εκτοπίζει.'},{y:'~250 π.Χ.', t:'Νόμος του μοχλού', d:'Ισορροπία όταν τα γινόμενα δύναμης και βραχίονα είναι ίσα.'},{y:'~250 π.Χ.', t:'Κέντρο βάρους', d:'Μέθοδοι εύρεσης του κέντρου βάρους επίπεδων σχημάτων.'}],
+  ex:{t:'Πλέει ή βυθίζεται;', d:'Η προσομοίωση θα δείχνει σώμα σε νερό, την άνωση και το βάρος καθώς αλλάζεις την πυκνότητα.', a:null}},
+ {id:'eratosthenes', n:'Ερατοσθένης', ln:'ο Κυρηναίος', yr:'~276 – 194 π.Χ.', b:-276, place:'Κυρήνη · Αλεξάνδρεια', era:'antiquity', av:'plain',
+  tag:'Μέτρησε την περιφέρεια της Γης', tags:['γεωμετρία','Γη','ακτίνες Ήλιου'],
+  bio:['Ο Ερατοσθένης διηύθυνε τη Βιβλιοθήκη της Αλεξάνδρειας. Έμαθε ότι στη Συήνη τη μέρα του θερινού ηλιοστασίου ο Ήλιος φωτίζει τον πυθμένα ενός πηγαδιού, δηλαδή οι ακτίνες είναι κατακόρυφες.','Την ίδια ώρα στην Αλεξάνδρεια ένα κατακόρυφο ραβδί έριχνε σκιά που αντιστοιχούσε σε γωνία περίπου 7,2°, δηλαδή το 1/50 του κύκλου. Με απόσταση περίπου 5.000 σταδίων βρήκε περιφέρεια περίπου 250.000 σταδίων, αποτέλεσμα κοντά στη σημερινή τιμή.'],
+  q:'Με ένα ραβδί, μια σκιά και λίγη γεωμετρία μέτρησε ολόκληρη τη Γη.',
+  disc:[{y:'~240 π.Χ.', t:'Μέτρηση της Γης', d:'Περιφέρεια ≈ 50 × απόσταση Συήνης – Αλεξάνδρειας.'},{y:'~240 π.Χ.', t:'Κλίση του άξονα της Γης', d:'Υπολόγισε την κλίση της εκλειπτικής με αξιοσημείωτη ακρίβεια.'}],
+  ex:{t:'Η σκιά ενός ραβδιού', d:'Οι ακτίνες του Ήλιου είναι παράλληλες. Στη Συήνη το ραβδί δεν έχει σκιά, ενώ στην Αλεξάνδρεια έχει. Η γωνία της σκιάς ισούται με τη γωνία των δύο πόλεων από το κέντρο της Γης. Στο σχήμα η γωνία είναι υπερμεγεθυμένη.', a:'eratosthenes'}},
+ {id:'alhazen', n:'Ιμπν αλ-Χαϊθάμ', ln:'(Alhazen)', yr:'965 – 1040', b:965, place:'Βασόρα · Κάιρο', era:'medieval', av:'turban',
+  tag:'Θεμελιωτής της οπτικής και της πειραματικής μεθόδου', tags:['οπτική','όραση','σκοτεινός θάλαμος'],
+  bio:['Ο Ιμπν αλ-Χαϊθάμ έγραψε το «Βιβλίο της Οπτικής», όπου απέδειξε ότι βλέπουμε επειδή το φως ανακλάται από τα αντικείμενα και μπαίνει στο μάτι, και όχι επειδή το μάτι εκπέμπει ακτίνες.','Μελέτησε την ανάκλαση, τη διάθλαση και τον σκοτεινό θάλαμο, και υποστήριξε ότι οι θεωρίες πρέπει να ελέγχονται με συστηματικά πειράματα.'],
+  q:'Η αναζήτηση της αλήθειας γίνεται με πείραμα και κριτική σκέψη.',
+  disc:[{y:'~1021', t:'Βιβλίο της Οπτικής', d:'Θεωρία της όρασης και συστηματική μελέτη του φωτός.'},{y:'~1021', t:'Σκοτεινός θάλαμος', d:'Μικρή οπή σχηματίζει ανεστραμμένη εικόνα του εξωτερικού χώρου.'}],
+  ex:{t:'Σκοτεινός θάλαμος', d:'Η προσομοίωση θα δείχνει πώς μια μικρή οπή σχηματίζει ανεστραμμένη εικόνα.', a:null}},
+ {id:'copernicus', n:'Νικόλαος Κοπέρνικος', ln:'', yr:'1473 – 1543', b:1473, place:'Πολωνία', era:'revolution', av:'cap',
+  tag:'Βάζει τον Ήλιο στο κέντρο', tags:['ηλιοκεντρικό','αστρονομία'],
+  bio:['Ο Κοπέρνικος πρότεινε ότι η Γη και οι πλανήτες κινούνται γύρω από τον Ήλιο και ότι η Γη περιστρέφεται γύρω από τον άξονά της. Το έργο του «Περί των περιστροφών των ουρανίων σφαιρών» εκδόθηκε το 1543.','Η ιδέα άργησε να γίνει αποδεκτή, αλλά άνοιξε τον δρόμο για τον Κέπλερ και τον Γαλιλαίο.'],
+  q:'Η Γη δεν είναι το κέντρο του σύμπαντος.',
+  disc:[{y:'1543', t:'Ηλιοκεντρικό σύστημα', d:'Εξήγηση της φαινομενικής ανάδρομης κίνησης των πλανητών με την κίνηση της Γης.'}],
+  ex:{t:'Η φαινομενική κίνηση των πλανητών', d:'Η προσομοίωση θα συγκρίνει τα δύο συστήματα (γεωκεντρικό – ηλιοκεντρικό).', a:null}},
+ {id:'galileo', n:'Γαλιλαίος Γαλιλέι', ln:'', yr:'1564 – 1642', b:1564, place:'Πίζα · Πάδοβα · Φλωρεντία', era:'revolution', av:'beard',
+  tag:'Ο πατέρας της πειραματικής φυσικής', tags:['εκκρεμές','πτώση σωμάτων','τηλεσκόπιο'],
+  bio:['Ο Γαλιλαίος συνέδεσε το πείραμα με τα μαθηματικά. Με κεκλιμένα επίπεδα μελέτησε την πτώση των σωμάτων και διατύπωσε την αρχή της αδράνειας. Μελέτησε το εκκρεμές και βρήκε ότι η περίοδός του δεν εξαρτάται από το πλάτος για μικρές γωνίες.','Το 1609 έστρεψε το τηλεσκόπιο στον ουρανό και είδε τους δορυφόρους του Δία, τις φάσεις της Αφροδίτης και τους κρατήρες της Σελήνης, στοιχεία υπέρ του ηλιοκεντρικού συστήματος.'],
+  q:'Το βιβλίο της φύσης είναι γραμμένο στη γλώσσα των μαθηματικών.',
+  disc:[{y:'~1602', t:'Ισοχρονισμός του εκκρεμούς', d:'Η περίοδος εξαρτάται από το μήκος και όχι από τη μάζα.'},{y:'1609–10', t:'Αστρονομικές παρατηρήσεις', d:'Δορυφόροι του Δία, φάσεις Αφροδίτης, κρατήρες Σελήνης.'},{y:'1638', t:'Νόμοι πτώσης σωμάτων', d:'Η απόσταση ανάλογη του τετραγώνου του χρόνου στην ελεύθερη πτώση.'}],
+  ex:{t:'Το εκκρεμές του Γαλιλαίου', d:'Άλλαξε το μήκος και δες πώς αλλάζει η περίοδος: T = 2π√(L/g).', a:'pendulum'}},
+ {id:'kepler', n:'Γιοχάνες Κέπλερ', ln:'', yr:'1571 – 1630', b:1571, place:'Γερμανία · Αυστρία', era:'revolution', av:'plain',
+  tag:'Οι τρεις νόμοι των πλανητικών κινήσεων', tags:['πλανήτες','ελλείψεις','τροχιές'],
+  bio:['Ο Κέπλερ ανέλυσε τις παρατηρήσεις του Τύχο Μπράε για τον Άρη και κατέληξε ότι οι πλανήτες κινούνται σε ελλείψεις με τον Ήλιο στη μία εστία.','Διατύπωσε τρεις νόμους: οι τροχιές είναι ελλείψεις, η επιβατική ακτίνα σαρώνει ίσα εμβαδά σε ίσους χρόνους και το τετράγωνο της περιόδου είναι ανάλογο του κύβου του μεγάλου ημιάξονα.'],
+  q:'Οι πλανήτες κινούνται σε ελλείψεις και όχι σε τέλειους κύκλους.',
+  disc:[{y:'1609', t:'1ος και 2ος νόμος', d:'Ελλειπτικές τροχιές και ίσα εμβαδά σε ίσους χρόνους.'},{y:'1619', t:'3ος νόμος', d:'T² ανάλογο του a³.'}],
+  ex:{t:'Ίσα εμβαδά σε ίσους χρόνους', d:'Οι δύο σκιασμένοι τομείς διαγράφονται στον ίδιο χρόνο, έχουν ίσα εμβαδά και ο πλανήτης κινείται ταχύτερα όταν είναι πιο κοντά στον Ήλιο.', a:'kepler'}},
+ {id:'newton', n:'Ισαάκ Νεύτων', ln:'', yr:'1643 – 1727', b:1643, place:'Αγγλία', era:'revolution', av:'wig',
+  tag:'Νόμοι κίνησης και παγκόσμια έλξη', tags:['βαρύτητα','νόμοι','πρίσμα','λογισμός'],
+  bio:['Στα «Μαθηματικά Αρχές της Φυσικής Φιλοσοφίας» (1687) ο Νεύτων διατύπωσε τους τρεις νόμους της κίνησης και τον νόμο της παγκόσμιας έλξης, εξηγώντας με την ίδια θεωρία την πτώση ενός μήλου και την τροχιά της Σελήνης.','Με πρίσμα ανέλυσε το λευκό φως στα χρώματα του ουράνιου τόξου και ανέπτυξε μαζί με τον Λάιμπνιτς τον διαφορικό και ολοκληρωτικό λογισμό.'],
+  q:'Ο ίδιος νόμος κυβερνά τη γη και τον ουρανό.',
+  disc:[{y:'1687', t:'Νόμοι της κίνησης', d:'Αδράνεια, θεμελιώδης νόμος ΣF = m·a, δράση – αντίδραση.'},{y:'1687', t:'Παγκόσμια έλξη', d:'F = G·m₁·m₂/r².'},{y:'1704', t:'Ανάλυση του φωτός', d:'Το λευκό φως αποτελείται από χρώματα που διαθλώνται διαφορετικά.'}],
+  ex:{t:'Ανάλυση του λευκού φωτός', d:'Η προσομοίωση θα δείχνει πρίσμα και διασπορά των χρωμάτων.', a:null}},
+ {id:'faraday', n:'Μάικλ Φαραντέι', ln:'', yr:'1791 – 1867', b:1791, place:'Λονδίνο', era:'classical', av:'plain',
+  tag:'Ηλεκτρομαγνητική επαγωγή', tags:['επαγωγή','μαγνητικό πεδίο','ηλεκτρισμός'],
+  bio:['Ο Φαραντέι, αυτοδίδακτος πειραματιστής, ανακάλυψε το 1831 ότι η μεταβολή του μαγνητικού πεδίου μέσα από ένα κύκλωμα παράγει ρεύμα.','Εισήγαγε την έννοια των δυναμικών γραμμών και του πεδίου και διατύπωσε νόμους της ηλεκτρόλυσης. Η ανακάλυψή του είναι η βάση της γεννήτριας και του μετασχηματιστή.'],
+  q:'Μεταβάλλεται το μαγνητικό πεδίο, παράγεται ρεύμα.',
+  disc:[{y:'1831', t:'Ηλεκτρομαγνητική επαγωγή', d:'Μαγνήτης που κινείται μέσα σε πηνίο δημιουργεί ηλεκτρεγερτική δύναμη.'},{y:'1833', t:'Νόμοι ηλεκτρόλυσης', d:'Η ποσότητα ουσίας είναι ανάλογη του φορτίου που περνά.'}],
+  ex:{t:'Μαγνήτης και πηνίο', d:'Η προσομοίωση θα δείχνει μαγνήτη που κινείται μέσα σε πηνίο και το αμπερόμετρο που εκτρέπεται.', a:null}},
+ {id:'maxwell', n:'Τζέιμς Κλαρκ Μάξγουελ', ln:'', yr:'1831 – 1879', b:1831, place:'Σκωτία · Αγγλία', era:'classical', av:'beard',
+  tag:'Το φως είναι ηλεκτρομαγνητικό κύμα', tags:['εξισώσεις','κύματα','φως'],
+  bio:['Ο Μάξγουελ συνέδεσε τον ηλεκτρισμό, τον μαγνητισμό και το φως σε τέσσερις εξισώσεις. Προέβλεψε ηλεκτρομαγνητικά κύματα που διαδίδονται με ταχύτητα περίπου 3·10⁸ m/s, ίση με την ταχύτητα του φωτός.','Ο Χερτς επιβεβαίωσε πειραματικά την πρόβλεψη το 1887, ανοίγοντας τον δρόμο στο ραδιόφωνο και στις τηλεπικοινωνίες.'],
+  q:'Το φως είναι ηλεκτρομαγνητική διαταραχή.',
+  disc:[{y:'1865', t:'Ηλεκτρομαγνητικό πεδίο', d:'Ενοποίηση ηλεκτρικών και μαγνητικών φαινομένων.'},{y:'1865', t:'Ηλεκτρομαγνητικά κύματα', d:'Τα Ε και Β ταλαντώνονται κάθετα μεταξύ τους και στη διεύθυνση διάδοσης.'}],
+  ex:{t:'Το ηλεκτρομαγνητικό κύμα', d:'Το ηλεκτρικό (Ε) και το μαγνητικό (Β) πεδίο ταλαντώνονται κάθετα μεταξύ τους.', a:'maxwell'}},
+ {id:'curie', n:'Μαρί Κιουρί', ln:'', yr:'1867 – 1934', b:1867, place:'Βαρσοβία · Παρίσι', era:'modern', av:'bun',
+  tag:'Ραδιενέργεια · δύο βραβεία Νόμπελ', tags:['ραδιενέργεια','πολώνιο','ράδιο'],
+  bio:['Η Μαρί Κιουρί μελέτησε τη ραδιενέργεια, όρο που εισήγαγε η ίδια. Με τον Πιερ Κιουρί ανακάλυψε τα στοιχεία πολώνιο και ράδιο.','Το 1903 τιμήθηκε με το βραβείο Νόμπελ Φυσικής (μαζί με τον Πιερ Κιουρί και τον Μπεκερέλ) και το 1911 με το Νόμπελ Χημείας.'],
+  q:'Η ραδιενέργεια είναι ιδιότητα του ίδιου του ατόμου.',
+  disc:[{y:'1898', t:'Πολώνιο και ράδιο', d:'Νέα ραδιενεργά στοιχεία από το ορυκτό ουρανιονίτη.'},{y:'1903', t:'Νόμπελ Φυσικής', d:'Για τη μελέτη της ραδιενέργειας.'}],
+  ex:{t:'Ραδιενεργή διάσπαση', d:'Κάθε πυρήνας διασπάται τυχαία. Ο χρόνος ημιζωής είναι ο χρόνος που χρειάζεται για να μείνουν οι μισοί πυρήνες.', a:'decay'}},
+ {id:'rutherford', n:'Έρνεστ Ράδερφορντ', ln:'', yr:'1871 – 1937', b:1871, place:'Νέα Ζηλανδία · Αγγλία', era:'modern', av:'moustache',
+  tag:'Ανακαλύπτει τον ατομικό πυρήνα', tags:['πυρήνας','σκέδαση','άλφα'],
+  bio:['Στο πείραμα των Γκάιγκερ και Μάρσντεν (1909) σωματίδια άλφα βομβάρδισαν λεπτό φύλλο χρυσού. Τα περισσότερα περνούσαν, αλλά μερικά ανακλώνταν προς τα πίσω.','Ο Ράδερφορντ κατέληξε το 1911 ότι το άτομο έχει μικρό, πυκνό, θετικά φορτισμένο πυρήνα και ότι το υπόλοιπο είναι σχεδόν κενό.'],
+  q:'Σαν να ρίχνεις βλήμα σε χαρτί και να γυρίζει πίσω.',
+  disc:[{y:'1909', t:'Πείραμα φύλλου χρυσού', d:'Σκέδαση σωματιδίων άλφα σε μεγάλες γωνίες.'},{y:'1911', t:'Πυρηνικό πρότυπο του ατόμου', d:'Ο πυρήνας συγκεντρώνει σχεδόν όλη τη μάζα και το θετικό φορτίο.'}],
+  ex:{t:'Σκέδαση σωματιδίων α', d:'Τα σωματίδια α απωθούνται από τον θετικό πυρήνα. Όσο πιο κοντά περνούν, τόσο μεγαλύτερη η εκτροπή.', a:'rutherford'}},
+ {id:'einstein', n:'Άλμπερτ Αϊνστάιν', ln:'', yr:'1879 – 1955', b:1879, place:'Ουλμ · Βέρνη · Πρίνστον', era:'modern', av:'wild',
+  tag:'Σχετικότητα και κβάντα του φωτός', tags:['σχετικότητα','E=mc²','φωτοηλεκτρικό'],
+  bio:['Το 1905, το «θαυμαστό έτος» του, ο Αϊνστάιν δημοσίευσε εργασίες για την ειδική σχετικότητα, το φωτοηλεκτρικό φαινόμενο, την κίνηση Μπράουν και την ισοδυναμία μάζας – ενέργειας E = mc².','Το 1915 παρουσίασε τη γενική σχετικότητα, όπου η βαρύτητα είναι καμπυλότητα του χωροχρόνου. Έλαβε το Νόμπελ Φυσικής 1921 για την εξήγηση του φωτοηλεκτρικού φαινομένου.'],
+  q:'Ο χρόνος και ο χώρος δεν είναι απόλυτοι.',
+  disc:[{y:'1905', t:'Ειδική σχετικότητα', d:'Η ταχύτητα του φωτός είναι ίδια για όλους τους αδρανειακούς παρατηρητές.'},{y:'1905', t:'Φωτοηλεκτρικό φαινόμενο', d:'Το φως αποτελείται από κβάντα, τα φωτόνια.'},{y:'1915', t:'Γενική σχετικότητα', d:'Η ύλη καμπυλώνει τον χωρόχρονο.'}],
+  ex:{t:'Διαστολή του χρόνου', d:'Η προσομοίωση θα δείχνει ρολόι φωτός σε κίνηση.', a:null}},
+ {id:'bohr', n:'Νιλς Μπορ', ln:'', yr:'1885 – 1962', b:1885, place:'Κοπεγχάγη', era:'modern', av:'plain',
+  tag:'Κβαντισμένες τροχιές στο άτομο', tags:['άτομο','κβάντα','φάσμα'],
+  bio:['Ο Μπορ το 1913 πρότεινε ότι τα ηλεκτρόνια στο άτομο του υδρογόνου κινούνται μόνο σε επιτρεπτές τροχιές και εκπέμπουν ή απορροφούν φωτόνιο όταν αλλάζουν ενεργειακή στάθμη.','Εξήγησε έτσι τις φασματικές γραμμές του υδρογόνου και έλαβε το Νόμπελ Φυσικής του 1922.'],
+  q:'Τα ηλεκτρόνια μπορούν να βρίσκονται μόνο σε ορισμένες ενεργειακές στάθμες.',
+  disc:[{y:'1913', t:'Ατομικό πρότυπο Μπορ', d:'Κβαντισμένη στροφορμή και διακριτές ενεργειακές στάθμες.'}],
+  ex:{t:'Μεταβάσεις ηλεκτρονίου', d:'Η προσομοίωση θα δείχνει πώς μια μετάπτωση εκπέμπει φωτόνιο συγκεκριμένου χρώματος.', a:null}},
+ {id:'hawking', n:'Στίβεν Χώκινγκ', ln:'', yr:'1942 – 2018', b:1942, place:'Οξφόρδη · Κέιμπριτζ', era:'contemporary', av:'glasses',
+  tag:'Μαύρες τρύπες και κοσμολογία', tags:['μαύρες τρύπες','Μεγάλη Έκρηξη'],
+  bio:['Ο Χώκινγκ μελέτησε τις μαύρες τρύπες και την αρχή του σύμπαντος. Με τον Πένροουζ απέδειξε θεωρήματα για τις ιδιομορφίες του χωροχρόνου.','Το 1974 έδειξε ότι οι μαύρες τρύπες εκπέμπουν ακτινοβολία (ακτινοβολία Χώκινγκ) και μπορούν να εξατμιστούν. Το βιβλίο του «Μια σύντομη ιστορία του χρόνου» έκανε την κοσμολογία γνωστή σε εκατομμύρια αναγνώστες.'],
+  q:'Οι μαύρες τρύπες δεν είναι εντελώς μαύρες.',
+  disc:[{y:'1970', t:'Θεωρήματα ιδιομορφιών', d:'Με τον Πένροουζ για την αρχή του σύμπαντος.'},{y:'1974', t:'Ακτινοβολία Hawking', d:'Κβαντικά φαινόμενα στον ορίζοντα μαύρης τρύπας.'}],
+  ex:{t:'Ο ορίζοντας γεγονότων', d:'Η προσομοίωση θα δείχνει τροχιές φωτός κοντά σε μαύρη τρύπα.', a:null}}
+];
+
+MORE.push(
+mk('pythagoras','Πυθαγόρας','~570 – 495 π.Χ.',-570,'Σάμος · Κρότωνας','antiquity','beard','lyre','Αριθμοί και αρμονία','Ο Πυθαγόρας και η σχολή του υποστήριξαν ότι η φύση διέπεται από αριθμητικές σχέσεις. Σύμφωνα με την παράδοση, βρήκαν ότι οι αρμονικοί φθόγγοι αντιστοιχούν σε απλούς λόγους μηκών της χορδής.','Μουσικά διαστήματα και αριθμοί','Το μήκος της χορδής και το ύψος του φθόγγου συνδέονται με απλούς λόγους, όπως 2:1 και 3:2.'),
+mk('democritus','Δημόκριτος και Λεύκιππος','~460 – 370 π.Χ.',-460,'Άβδηρα','antiquity','beard','atomd','Η ιδέα του ατόμου','Ο Λεύκιππος και ο Δημόκριτος υποστήριξαν ότι η ύλη αποτελείται από αδιαίρετα σωματίδια, τα άτομα, που κινούνται στο κενό. Η ιδέα βασιζόταν σε φιλοσοφικό συλλογισμό και όχι σε πείραμα.','Ατομική θεωρία της ύλης','Η ύλη δεν διαιρείται απεριόριστα. Υπάρχουν τελικά αδιαίρετα συστατικά.'),
+mk('aristarchus','Αρίσταρχος ο Σάμιος','~310 – 230 π.Χ.',-310,'Σάμος · Αλεξάνδρεια','antiquity','plain','copernicus','Ο Ήλιος στο κέντρο, πολλούς αιώνες πριν','Ο Αρίσταρχος εκτίμησε τα σχετικά μεγέθη και τις αποστάσεις Ήλιου και Σελήνης και κατέληξε ότι ο Ήλιος είναι πολύ μεγαλύτερος από τη Γη. Πρότεινε ότι η Γη κινείται γύρω από τον Ήλιο, ιδέα που δεν επικράτησε τότε.','Πρώτη ηλιοκεντρική πρόταση','Η Γη περιστρέφεται και κινείται γύρω από τον Ήλιο.'),
+mk('hipparchus','Ίππαρχος','~190 – 120 π.Χ.',-190,'Νίκαια · Ρόδος','antiquity','beard','compass','Ο πατέρας της παρατηρησιακής αστρονομίας','Ο Ίππαρχος συνέταξε έναν από τους πρώτους αστρικούς καταλόγους και ανακάλυψε τη μετάπτωση των ισημεριών. Χρησιμοποίησε την τριγωνομετρία για αστρονομικούς υπολογισμούς.','Μετάπτωση των ισημεριών','Ο άξονας της Γης αλλάζει σταδιακά κατεύθυνση.'),
+mk('hero','Ήρων ο Αλεξανδρεύς','~10 – 70',10,'Αλεξάνδρεια','antiquity','plain','steam','Ατμός και αυτόματες μηχανές','Ο Ήρων περιέγραψε πολλές μηχανές, μεταξύ των οποίων την αιολόσφαιρα, μια πρώτη διάταξη που περιστρέφεται από ατμό με αντίδραση. Μελέτησε και την ανάκλαση του φωτός.','Αιολόσφαιρα','Ατμός που βγαίνει από ακροφύσια περιστρέφει μια σφαίρα.'),
+mk('ptolemy','Κλαύδιος Πτολεμαίος','~100 – 170',100,'Αλεξάνδρεια','antiquity','plain','copernicus','Η Αλμαγέστη και η οπτική','Ο Πτολεμαίος έγραψε την Αλμαγέστη, όπου περιέγραψε το γεωκεντρικό σύστημα με επικύκλους, που κυριάρχησε για περίπου 1.400 χρόνια. Μελέτησε επίσης τη διάθλαση του φωτός.','Αλμαγέστη','Μαθηματικό μοντέλο για την κίνηση του Ήλιου, της Σελήνης και των πλανητών.'),
+mk('zhangheng','Ζανγκ Χενγκ','78 – 139',78,'Κίνα','antiquity','cap','gauge','Το πρώτο σεισμοσκόπιο','Ο Ζανγκ Χενγκ ήταν αστρονόμος και μηχανικός της δυναστείας Χαν. Το 132 κατασκεύασε σεισμοσκόπιο που έδειχνε την κατεύθυνση από την οποία ερχόταν ένας σεισμός.','Σεισμοσκόπιο','Σφαιρίδιο έπεφτε από στόμα δράκου όταν ένας σεισμός ερχόταν από την αντίστοιχη κατεύθυνση.'),
+mk('philoponus','Ιωάννης Φιλόπονος','~490 – 570',490,'Αλεξάνδρεια','medieval','beard','spring','Η πρώτη κριτική στον Αριστοτέλη','Ο Φιλόπονος αμφισβήτησε την αριστοτελική άποψη ότι τα βαρύτερα σώματα πέφτουν πολύ ταχύτερα. Πρότεινε ότι ένα βλήμα συνεχίζει να κινείται επειδή του μεταδίδεται ορμητική δύναμη, πρόδρομος της έννοιας της ορμής.','Θεωρία της ορμητικής δύναμης','Το βλήμα κινείται λόγω μιας ιδιότητας που αποκτά από αυτόν που το εκτόξευσε.'),
+mk('albiruni','Αλ-Μπιρουνί','973 – ~1050',973,'Χορεζμ · Γάζνα','medieval','turban','eratosthenes','Μέτρηση της Γης από ένα βουνό','Ο Αλ-Μπιρουνί υπολόγισε την ακτίνα της Γης μετρώντας τη γωνία του ορίζοντα από την κορυφή ενός βουνού, με αποτέλεσμα κοντά στη σημερινή τιμή.','Μέτρηση της ακτίνας της Γης','Τριγωνομετρική μέθοδος από ύψωμα, με ένα μόνο όργανο.'),
+mk('antikythera','Μηχανισμός των Αντικυθήρων','~2ος – 1ος αι. π.Χ.',-100,'Αντικύθηρα, Ελλάδα','antiquity','ghost','gear','Άγνωστος κατασκευαστής','Ο αρχαιότερος γνωστός αναλογικός υπολογιστής βρέθηκε το 1901 σε ναυάγιο. Με σύστημα οδοντωτών τροχών υπολόγιζε θέσεις Ήλιου και Σελήνης, φάσεις και εκλείψεις. Ο κατασκευαστής του είναι άγνωστος.','Αστρονομικός υπολογιστής με γρανάζια','Περίπου 30 γρανάζια προβλέπουν σεληνιακούς και ηλιακούς κύκλους.'),
+mk('compass','Μαγνητική πυξίδα','~11ος αι.',1050,'Κίνα','medieval','ghost','compass','Αγνώστου εφευρέτη','Η μαγνητική πυξίδα ξεκίνησε στην Κίνα και αργότερα χρησιμοποιήθηκε στη ναυσιπλοΐα. Εξαπλώθηκε στον Ισλαμικό κόσμο και στην Ευρώπη. Δεν αποδίδεται σε συγκεκριμένο πρόσωπο.','Μαγνητική βελόνα στη ναυσιπλοΐα','Η βελόνα ευθυγραμμίζεται με το μαγνητικό πεδίο της Γης.'),
+mk('glasses','Γυαλιά οράσεως','~1286',1286,'Ιταλία','medieval','ghost','glasses','Αγνώστου εφευρέτη','Τα πρώτα γυαλιά με φακούς εμφανίστηκαν στην Ιταλία γύρω στο 1286. Ο εφευρέτης τους παραμένει άγνωστος. Έδειξαν πρακτικά ότι οι κυρτοί φακοί μεγεθύνουν.','Διορθωτικοί φακοί','Κυρτοί φακοί βοηθούν στην πρεσβυωπία.'),
+mk('clockm','Μηχανικό ρολόι','~1300',1300,'Ευρώπη','medieval','ghost','clock','Αγνώστου εφευρέτη','Το μηχανικό ρολόι με μηχανισμό διαφυγής εμφανίστηκε στην Ευρώπη γύρω στο 1300, χωρίς γνωστό εφευρέτη. Μέτρησε τον χρόνο με ταλάντωση και άνοιξε τον δρόμο προς την ακριβή μέτρηση του χρόνου.','Μηχανισμός διαφυγής','Ο μηχανισμός ελευθερώνει περιοδικά την ενέργεια και δίνει ρυθμό.')
+);
+
+MORE.push(
+mk('gilbert','Γουίλιαμ Γκίλμπερτ','1544 – 1603',1544,'Αγγλία','revolution','beard','magnet','Η Γη είναι ένας μεγάλος μαγνήτης','Στο έργο «De Magnete» (1600) ο Γκίλμπερτ μελέτησε συστηματικά τον μαγνητισμό και την έλξη από τριβή. Υποστήριξε ότι η Γη λειτουργεί σαν μεγάλος μαγνήτης.','Μαγνητισμός της Γης','Η πυξίδα δείχνει βορρά επειδή η Γη έχει δικό της μαγνητικό πεδίο.'),
+mk('snell','Βίλεμπροντ Σνελ','1580 – 1626',1580,'Ολλανδία','revolution','plain','lens','Ο νόμος της διάθλασης','Ο Σνελ βρήκε γύρω στο 1621 τη σχέση ανάμεσα στις γωνίες πρόσπτωσης και διάθλασης του φωτός. Ο Ντεκάρτ τη δημοσίευσε αργότερα με άλλη μορφή.','Νόμος της διάθλασης','Το πηλίκο των ημιτόνων των γωνιών είναι σταθερό για δύο υλικά.'),
+mk('torricelli','Εβαντζελίστα Τορικέλι','1608 – 1647',1608,'Ιταλία','revolution','plain','gauge','Το βαρόμετρο','Μαθητής του Γαλιλαίου, ο Τορικέλι έδειξε το 1643 ότι μια στήλη υδραργύρου στηρίζεται από το βάρος της ατμόσφαιρας και κατασκεύασε το πρώτο βαρόμετρο. Δημιούργησε έτσι και το πρώτο τεχνητό κενό.','Ατμοσφαιρική πίεση','Η στήλη υδραργύρου ισορροπεί με την πίεση της ατμόσφαιρας.'),
+mk('pascal','Μπλεζ Πασκάλ','1623 – 1662',1623,'Γαλλία','revolution','hair','gauge','Η πίεση στα ρευστά','Ο Πασκάλ διατύπωσε ότι η πίεση που ασκείται σε περιορισμένο ρευστό μεταδίδεται σε όλα τα σημεία του, αρχή που στηρίζει το υδραυλικό πιεστήριο. Μελέτησε και την ατμοσφαιρική πίεση.','Αρχή του Πασκάλ','Η αύξηση της πίεσης μεταδίδεται αμείωτη σε όλο το ρευστό.'),
+mk('boyle','Ρόμπερτ Μπόιλ','1627 – 1691',1627,'Ιρλανδία · Αγγλία','revolution','wig','gauge','Ο νόμος των αερίων','Ο Μπόιλ βρήκε πειραματικά ότι, σε σταθερή θερμοκρασία, η πίεση ενός αερίου είναι αντιστρόφως ανάλογη του όγκου του. Υποστήριξε ότι η φυσική και η χημεία πρέπει να στηρίζονται σε πειράματα.','Νόμος του Μπόιλ','P · V = σταθερό σε σταθερή θερμοκρασία.'),
+mk('hooke','Ρόμπερτ Χουκ','1635 – 1703',1635,'Αγγλία','revolution','wig','spring','Ελαστικότητα και μικροσκόπιο','Ο Χουκ διατύπωσε ότι η επιμήκυνση ενός ελατηρίου είναι ανάλογη της δύναμης που το τεντώνει και δημοσίευσε το «Micrographia» με παρατηρήσεις από μικροσκόπιο. Είχε έντονη διαφωνία με τον Νεύτωνα.','Νόμος του Χουκ','Η δύναμη του ελατηρίου είναι ανάλογη της παραμόρφωσης.'),
+mk('romer','Όλε Ρέμερ','1644 – 1710',1644,'Δανία','revolution','wig','orbit','Η ταχύτητα του φωτός δεν είναι άπειρη','Παρατηρώντας τις εκλείψεις του δορυφόρου Ιώ του Δία, ο Ρέμερ κατέληξε το 1676 ότι το φως χρειάζεται χρόνο για να διανύσει αποστάσεις και έκανε την πρώτη εκτίμηση της ταχύτητάς του.','Πεπερασμένη ταχύτητα του φωτός','Οι εκλείψεις της Ιούς καθυστερούν όταν η Γη απομακρύνεται από τον Δία.'),
+mk('huygens','Κρίστιαν Χόιγκενς','1629 – 1695',1629,'Ολλανδία','revolution','wig','clock','Εκκρεμές ρολόι και κύματα φωτός','Ο Χόιγκενς κατασκεύασε το πρώτο εκκρεμές ρολόι (1656), ανακάλυψε τον Τιτάνα, δορυφόρο του Κρόνου, και πρότεινε ότι το φως είναι κύμα.','Κυματική θεωρία του φωτός','Κάθε σημείο ενός μετώπου κύματος γίνεται πηγή δευτερογενών κυμάτων.'),
+mk('newcomen','Τόμας Νιούκομεν','1664 – 1729',1664,'Αγγλία','classical','plain','steam','Η πρώτη πρακτική ατμομηχανή','Η ατμομηχανή του Νιούκομεν (1712) αντλούσε νερό από ορυχεία. Στηρίχτηκε στην ατμοσφαιρική πίεση και προετοίμασε τη Βιομηχανική Επανάσταση.','Ατμομηχανή','Ο ατμός συμπυκνώνεται και η ατμοσφαιρική πίεση σπρώχνει το έμβολο.'),
+mk('bernoulli','Ντάνιελ Μπερνούλι','1700 – 1782',1700,'Ελβετία','classical','wig','gauge','Η αρχή του Μπερνούλι','Στο έργο «Hydrodynamica» (1738) ο Μπερνούλι συνέδεσε την πίεση και την ταχύτητα ενός ρευστού. Προσπάθησε επίσης να εξηγήσει τα αέρια με κινούμενα μόρια.','Εξίσωση Μπερνούλι','Όπου το ρευστό κινείται ταχύτερα, η πίεση είναι μικρότερη.'),
+mk('musschenbroek','Πίτερ φαν Μούσενμπρουκ','1692 – 1761',1692,'Ολλανδία','classical','wig','battery','Φιάλη της Λέιντεν','Το 1745 ο Μούσενμπρουκ στη Λέιντεν (και ανεξάρτητα ο Κλάιστ) κατασκεύασε τη φιάλη της Λέιντεν, τον πρώτο πυκνωτή, που αποθηκεύει ηλεκτρικό φορτίο.','Πρώτος πυκνωτής','Γυάλινο δοχείο με μεταλλικές επιφάνειες αποθηκεύει φορτίο.'),
+mk('franklin','Μπέντζαμιν Φράνκλιν','1706 – 1790',1706,'ΗΠΑ','classical','glasses','bolt','Ο κεραυνός είναι ηλεκτρισμός','Ο Φράνκλιν μελέτησε τον ηλεκτρισμό, εισήγαγε τα ονόματα θετικό και αρνητικό φορτίο και ανέπτυξε το αλεξικέραυνο. Το πείραμα με τον χαρταετό (1752) έγινε διάσημο.','Αλεξικέραυνο','Μεταλλική ράβδος οδηγεί το ρεύμα του κεραυνού με ασφάλεια στη γη.'),
+mk('watt','Τζέιμς Γουάτ','1736 – 1819',1736,'Σκωτία','classical','plain','steam','Η βελτιωμένη ατμομηχανή','Ο Γουάτ πρόσθεσε ξεχωριστό ψυκτήρα στην ατμομηχανή (1769) και αύξησε πολύ την απόδοσή της. Η μονάδα ισχύος watt πήρε το όνομά του.','Ξεχωριστός ψυκτήρας','Η ψύξη γίνεται εκτός του κυλίνδρου και μειώνονται οι απώλειες.'),
+mk('coulomb','Σαρλ ντε Κουλόμπ','1736 – 1806',1736,'Γαλλία','classical','wig','bolt','Ο νόμος του Κουλόμπ','Με ζυγό στρέψης ο Κουλόμπ έδειξε το 1785 ότι η δύναμη ανάμεσα σε δύο φορτία είναι ανάλογη του γινομένου τους και αντιστρόφως ανάλογη του τετραγώνου της απόστασης.','Νόμος του Κουλόμπ','F = k · q₁ · q₂ / r².'),
+mk('cavendish','Χένρι Κάβεντις','1731 – 1810',1731,'Αγγλία','classical','wig','scale','Το «ζύγισμα» της Γης','Το 1798 ο Κάβεντις μέτρησε με ζυγό στρέψης την έλξη ανάμεσα σε μεγάλες και μικρές σφαίρες μολύβδου και υπολόγισε την πυκνότητα της Γης, από όπου προκύπτει η σταθερά G.','Πείραμα Κάβεντις','Η πολύ μικρή έλξη ανάμεσα σε σφαίρες μετράται με ζυγό στρέψης.'),
+mk('volta','Αλεσάντρο Βόλτα','1745 – 1827',1745,'Ιταλία','classical','hair','battery','Η πρώτη μπαταρία','Το 1800 ο Βόλτα κατασκεύασε την ηλεκτρική στήλη από δίσκους ψευδαργύρου και χαλκού, την πρώτη πηγή συνεχούς ρεύματος.','Ηλεκτρική στήλη','Εναλλασσόμενοι δίσκοι δύο μετάλλων με υγρό ενδιάμεσο δίνουν τάση.')
+);
+
+MORE.push(
+mk('young','Τόμας Γιανγκ','1773 – 1829',1773,'Αγγλία','classical','hair','prob','Το φως ως κύμα','Το 1801 ο Γιανγκ πέρασε φως από δύο στενές σχισμές και παρατήρησε εναλλαγή φωτεινών και σκοτεινών κροσσών, απόδειξη της κυματικής φύσης του φωτός. Ασχολήθηκε επίσης με την όραση και την ελαστικότητα.','Πείραμα της διπλής σχισμής','Τα κύματα από τις δύο σχισμές συμβάλλουν και σχηματίζουν κροσσούς.'),
+mk('oersted','Χανς Κρίστιαν Έρστεντ','1777 – 1851',1777,'Δανία','classical','plain','magnet','Ο ηλεκτρισμός δημιουργεί μαγνητισμό','Το 1820 ο Έρστεντ παρατήρησε ότι ένα ρεύμα σε αγωγό εκτρέπει μια μαγνητική βελόνα. Ήταν η πρώτη ένδειξη ότι ο ηλεκτρισμός και ο μαγνητισμός συνδέονται.','Μαγνητικό πεδίο ρεύματος','Η βελόνα της πυξίδας εκτρέπεται κοντά σε ρευματοφόρο αγωγό.'),
+mk('ampere','Αντρέ-Μαρί Αμπέρ','1775 – 1836',1775,'Γαλλία','classical','plain','magnet','Δυνάμεις ανάμεσα σε ρεύματα','Ο Αμπέρ έδειξε ότι δύο παράλληλοι αγωγοί με ρεύμα έλκονται ή απωθούνται και συνέδεσε τον μαγνητισμό με την κίνηση φορτίων. Η μονάδα έντασης ρεύματος ονομάστηκε amper προς τιμήν του.','Ηλεκτροδυναμική','Παράλληλα ρεύματα προς την ίδια κατεύθυνση έλκονται.'),
+mk('carnot','Σαντί Καρνό','1796 – 1832',1796,'Γαλλία','classical','hair','cycle','Η θεωρία των θερμικών μηχανών','Στο έργο του του 1824 ο Καρνό μελέτησε την απόδοση των θερμικών μηχανών και έδειξε ότι εξαρτάται από τις θερμοκρασίες των δύο δεξαμενών. Θεωρείται θεμελιωτής της θερμοδυναμικής.','Κύκλος Καρνό','Καμία θερμική μηχανή δεν έχει μεγαλύτερη απόδοση από την ιδανική μηχανή Καρνό.'),
+mk('ohm','Γκέοργκ Ομ','1789 – 1854',1789,'Γερμανία','classical','plain','bolt','Ο νόμος του Ομ','Το 1827 ο Ομ έδειξε ότι η ένταση του ρεύματος σε έναν αγωγό είναι ανάλογη της τάσης στα άκρα του. Η σχέση έγινε το βασικό εργαλείο της ανάλυσης κυκλωμάτων.','Νόμος του Ομ','V = I · R.'),
+mk('joule','Τζέιμς Πρέσκοτ Τζάουλ','1818 – 1889',1818,'Αγγλία','classical','beard','cycle','Η διατήρηση της ενέργειας','Ο Τζάουλ μέτρησε με ακρίβεια το μηχανικό ισοδύναμο της θερμότητας και έδειξε ότι η μηχανική ενέργεια μετατρέπεται σε θερμότητα. Μαζί με τον Μάγιερ και τον Χέλμχολτς διατύπωσε τη διατήρηση της ενέργειας.','Ισοδύναμο θερμότητας – έργου','Ένα βάρος που πέφτει ανακατεύει νερό και ανεβάζει τη θερμοκρασία του.'),
+mk('fizeau','Ιπολίτ Φιζό','1819 – 1896',1819,'Γαλλία','classical','moustache','lens','Η ταχύτητα του φωτός στη Γη','Το 1849 ο Φιζό μέτρησε για πρώτη φορά την ταχύτητα του φωτός στη Γη με οδοντωτό τροχό και καθρέφτη σε απόσταση πάνω από 8 km.','Μέτρηση της ταχύτητας του φωτός','Ο οδοντωτός τροχός κόβει τη δέσμη και το φως επιστρέφει από καθρέφτη.'),
+mk('foucault','Λεόν Φουκώ','1819 – 1868',1819,'Γαλλία','classical','moustache','orbit','Το εκκρεμές του Φουκώ','Το 1851 ο Φουκώ κρέμασε ένα μεγάλο εκκρεμές στο Πάνθεον του Παρισιού και έδειξε ότι το επίπεδο ταλάντωσής του στρέφεται, απόδειξη ότι η Γη περιστρέφεται. Μέτρησε επίσης την ταχύτητα του φωτός.','Απόδειξη της περιστροφής της Γης','Το επίπεδο ταλάντωσης στρέφεται ως προς τη Γη.'),
+mk('clausius','Ρούντολφ Κλαούζιους','1822 – 1888',1822,'Γερμανία','classical','beard','cycle','Ο δεύτερος νόμος και η εντροπία','Ο Κλαούζιους διατύπωσε το 1850 τον δεύτερο νόμο της θερμοδυναμικής και το 1865 εισήγαγε την έννοια της εντροπίας.','Δεύτερος νόμος της θερμοδυναμικής','Η θερμότητα δεν μεταφέρεται από μόνη της από ψυχρό σε θερμό σώμα.'),
+mk('kirchhoff','Γκούσταβ Κίρχοφ','1824 – 1887',1824,'Γερμανία','classical','beard','lens','Φασματοσκοπία','Ο Κίρχοφ με τον Μπούνσεν έδειξε το 1859 ότι κάθε στοιχείο έχει χαρακτηριστικές φασματικές γραμμές. Διατύπωσε και τους κανόνες για τα ηλεκτρικά κυκλώματα.','Φασματική ανάλυση','Η σύσταση ενός σώματος προκύπτει από τις φασματικές γραμμές του.'),
+mk('boltzmann','Λούντβιχ Μπόλτσμαν','1844 – 1906',1844,'Αυστρία','classical','beard','uncert','Στατιστική φυσική','Ο Μπόλτσμαν συνέδεσε τη θερμοδυναμική με την κίνηση των μορίων και ερμήνευσε την εντροπία ως μέτρο των πιθανών διατάξεων ενός συστήματος.','Στατιστική ερμηνεία της εντροπίας','S = k · ln W.'),
+mk('edison','Τόμας Έντισον','1847 – 1931',1847,'ΗΠΑ','classical','plain','bulb','Ο πρακτικός λαμπτήρας','Το 1879 ο Έντισον (και ανεξάρτητα ο Σουάν) ανέπτυξε λαμπτήρα πυράκτωσης με μεγάλη διάρκεια ζωής, μαζί με ένα ολόκληρο σύστημα ηλεκτροφωτισμού.','Λαμπτήρας πυράκτωσης','Ένα νήμα που θερμαίνεται από το ρεύμα εκπέμπει φως.'),
+mk('tesla','Νίκολα Τέσλα','1856 – 1943',1856,'Σερβία · ΗΠΑ','classical','moustache','bolt','Το εναλλασσόμενο ρεύμα','Ο Τέσλα ανέπτυξε γύρω στο 1887 τον κινητήρα εναλλασσόμενου ρεύματος με στρεφόμενο μαγνητικό πεδίο και έκανε πρακτικά εφικτή τη μεταφορά ηλεκτρικής ενέργειας σε μεγάλες αποστάσεις.','Κινητήρας εναλλασσόμενου ρεύματος','Το στρεφόμενο μαγνητικό πεδίο κινεί τον ρότορα χωρίς ψήκτρες.'),
+mk('hertz','Χάινριχ Χερτς','1857 – 1894',1857,'Γερμανία','classical','moustache','radio','Τα ραδιοκύματα','Ο Χερτς παρήγαγε και ανίχνευσε ηλεκτρομαγνητικά κύματα (1887–88), επιβεβαιώνοντας τη θεωρία του Μάξγουελ. Η μονάδα συχνότητας hertz ονομάστηκε προς τιμήν του.','Παραγωγή ηλεκτρομαγνητικών κυμάτων','Ένας σπινθήρας σε μία διάταξη δημιουργεί σπινθήρα σε μια άλλη.'),
+mk('michelson','Άλμπερτ Μάικελσον','1852 – 1931',1852,'ΗΠΑ','classical','moustache','lens','Το πείραμα Μάικελσον – Μόρλεϊ','Το 1887 ο Μάικελσον με τον Μόρλεϊ δεν βρήκε διαφορά στην ταχύτητα του φωτός ως προς την κίνηση της Γης. Το αποτέλεσμα αμφισβήτησε την ύπαρξη του αιθέρα και προετοίμασε τη σχετικότητα.','Μηδενικό αποτέλεσμα για τον αιθέρα','Συμβολόμετρο συγκρίνει το φως σε δύο κάθετες διευθύνσεις.'),
+mk('roentgen','Βίλχελμ Ρέντγκεν','1845 – 1923',1845,'Γερμανία','classical','moustache','xray','Οι ακτίνες Χ','Το 1895 ο Ρέντγκεν παρατήρησε μια άγνωστη ακτινοβολία που περνά από σώματα και σκιαγραφεί τα οστά. Έλαβε το πρώτο Νόμπελ Φυσικής το 1901.','Ακτίνες Χ','Ένας σωλήνας κενού εκπέμπει διεισδυτική ακτινοβολία.'),
+mk('becquerel','Ανρί Μπεκερέλ','1852 – 1908',1852,'Γαλλία','classical','beard','pulsar','Η ραδιενέργεια','Το 1896 ο Μπεκερέλ βρήκε ότι άλατα ουρανίου αφήνουν σκούρο σημάδι σε φωτογραφική πλάκα χωρίς ήλιο. Μοιράστηκε το Νόμπελ Φυσικής του 1903 με το ζεύγος Κιουρί.','Αυθόρμητη ραδιενέργεια','Το ουράνιο εκπέμπει ακτινοβολία χωρίς εξωτερική πηγή.'),
+mk('thomson','Τζ. Τζ. Τόμσον','1856 – 1940',1856,'Αγγλία','classical','glasses','orbit','Το ηλεκτρόνιο','Το 1897 ο Τόμσον έδειξε ότι οι καθοδικές ακτίνες αποτελούνται από σωματίδια πολύ ελαφρύτερα από το άτομο, τα ηλεκτρόνια. Πρότεινε το ατομικό πρότυπο της «σταφιδόψωμο».','Ανακάλυψη του ηλεκτρονίου','Οι καθοδικές ακτίνες εκτρέπονται από ηλεκτρικά και μαγνητικά πεδία.')
+);
+
+MORE.push(
+mk('planck','Μαξ Πλανκ','1858 – 1947',1858,'Γερμανία','modern','moustache','prob','Η γέννηση της κβαντικής φυσικής','Το 1900 ο Πλανκ εξήγησε την ακτινοβολία του μέλανος σώματος υποθέτοντας ότι η ενέργεια ανταλλάσσεται σε διακριτά πακέτα, τα κβάντα. Έλαβε το Νόμπελ Φυσικής το 1918.','Κβάντα ενέργειας','E = h · f.'),
+mk('onnes','Χάικε Κάμερλινγκ Όνες','1853 – 1926',1853,'Ολλανδία','modern','moustache','sclev','Η υπεραγωγιμότητα','Το 1911 ο Όνες, που είχε υγροποιήσει το ήλιο, παρατήρησε ότι η αντίσταση του υδραργύρου μηδενίζεται κάτω από περίπου 4 K. Έλαβε το Νόμπελ Φυσικής το 1913.','Ανακάλυψη της υπεραγωγιμότητας','Η ηλεκτρική αντίσταση του υδραργύρου εξαφανίζεται σε πολύ χαμηλή θερμοκρασία.'),
+mk('eddington','Άρθουρ Έντινγκτον','1882 – 1944',1882,'Αγγλία','modern','moustache','lens','Η επιβεβαίωση της σχετικότητας','Κατά την ολική έκλειψη του 1919 οι παρατηρήσεις της ομάδας του Έντινγκτον έδειξαν ότι το φως των άστρων εκτρέπεται κοντά στον Ήλιο, όπως προέβλεπε η γενική σχετικότητα.','Εκτροπή του φωτός από τον Ήλιο','Η μάζα του Ήλιου καμπυλώνει τον χωροχρόνο και εκτρέπει το φως.'),
+mk('debroglie','Λουί ντε Μπρολί','1892 – 1987',1892,'Γαλλία','modern','moustache','prob','Κύματα ύλης','Στη διδακτορική του διατριβή (1924) ο Ντε Μπρολί πρότεινε ότι κάθε σωματίδιο έχει συσχετισμένο μήκος κύματος. Η ιδέα επιβεβαιώθηκε με περίθλαση ηλεκτρονίων. Έλαβε το Νόμπελ Φυσικής το 1929.','Κυματική φύση της ύλης','λ = h / p.'),
+mk('pauli','Βόλφγκανγκ Πάουλι','1900 – 1958',1900,'Αυστρία · Ελβετία','modern','hair','orbit','Η απαγορευτική αρχή','Το 1925 ο Πάουλι διατύπωσε ότι δύο ηλεκτρόνια δεν μπορούν να βρίσκονται στην ίδια κβαντική κατάσταση, αρχή που εξηγεί τη δομή του περιοδικού πίνακα. Το 1930 πρότεινε την ύπαρξη του νετρίνου.','Απαγορευτική αρχή','Δύο όμοια φερμιόνια δεν καταλαμβάνουν την ίδια κατάσταση.'),
+mk('schrodinger','Έρβιν Σρέντινγκερ','1887 – 1961',1887,'Αυστρία','modern','glasses','prob','Η κυματική εξίσωση της ύλης','Το 1926 ο Σρέντινγκερ διατύπωσε την εξίσωση που περιγράφει την εξέλιξη της κυματοσυνάρτησης ενός συστήματος. Το νοητικό πείραμα της γάτας ανέδειξε τα παράδοξα της κβαντικής μηχανικής. Έλαβε το Νόμπελ Φυσικής το 1933.','Εξίσωση Σρέντινγκερ','Η κυματοσυνάρτηση δίνει πιθανότητες για τα αποτελέσματα των μετρήσεων.'),
+mk('heisenberg','Βέρνερ Χάιζενμπεργκ','1901 – 1976',1901,'Γερμανία','modern','hair','uncert','Η αρχή της αβεβαιότητας','Ο Χάιζενμπεργκ ανέπτυξε το 1925 τη μητρωική μηχανική και το 1927 διατύπωσε ότι η θέση και η ορμή ενός σωματιδίου δεν μπορούν να προσδιοριστούν ταυτόχρονα με απόλυτη ακρίβεια. Έλαβε το Νόμπελ Φυσικής το 1932.','Αρχή της αβεβαιότητας','Δx · Δp ≥ h / 4π.'),
+mk('dirac','Πολ Ντιράκ','1902 – 1984',1902,'Αγγλία','modern','moustache','quark','Η αντιύλη','Το 1928 ο Ντιράκ συνδύασε την κβαντική μηχανική με τη σχετικότητα στην εξίσωση που φέρει το όνομά του και προέβλεψε την ύπαρξη του ποζιτρονίου. Έλαβε το Νόμπελ Φυσικής το 1933.','Εξίσωση Ντιράκ','Προβλέπει τον σπιν του ηλεκτρονίου και την ύπαρξη αντισωματιδίων.'),
+mk('hubble','Έντουιν Χαμπλ','1889 – 1953',1889,'ΗΠΑ','modern','plain','expand','Το σύμπαν διαστέλλεται','Το 1929 ο Χαμπλ έδειξε ότι οι γαλαξίες απομακρύνονται και μάλιστα ταχύτερα όσο πιο μακριά βρίσκονται. Πριν είχε αποδείξει ότι υπάρχουν γαλαξίες πέρα από τον δικό μας.','Νόμος του Χαμπλ','Η ταχύτητα απομάκρυνσης είναι ανάλογη της απόστασης.'),
+mk('chadwick','Τζέιμς Τσάντγουικ','1891 – 1974',1891,'Αγγλία','modern','glasses','orbit','Το νετρόνιο','Το 1932 ο Τσάντγουικ ταυτοποίησε το ουδέτερο σωματίδιο του πυρήνα, το νετρόνιο. Έλαβε το Νόμπελ Φυσικής το 1935.','Ανακάλυψη του νετρονίου','Ουδέτερη ακτινοβολία εκτινάσσει πρωτόνια από παραφίνη.'),
+mk('anderson','Κάρλ Άντερσον','1905 – 1991',1905,'ΗΠΑ','modern','plain','quark','Το ποζιτρόνιο','Το 1932 ο Άντερσον φωτογράφισε σε θάλαμο νέφους την τροχιά ενός σωματιδίου με μάζα ηλεκτρονίου και θετικό φορτίο, το ποζιτρόνιο, την πρώτη επιβεβαίωση της αντιύλης.','Ανακάλυψη της αντιύλης','Στη μαγνητική κάμψη η τροχιά στρέφεται αντίθετα από του ηλεκτρονίου.'),
+mk('meitner','Λίζε Μάιτνερ','1878 – 1968',1878,'Αυστρία · Σουηδία','modern','bun','fission','Η πυρηνική σχάση','Η Λίζε Μάιτνερ και ο ανιψιός της Όττο Φρις εξήγησαν το 1938–39 θεωρητικά το αποτέλεσμα των πειραμάτων του Χαν και του Στρασμάν: ο πυρήνας του ουρανίου διασπάται σε δύο μέρη και απελευθερώνει ενέργεια.','Θεωρία της σχάσης','Ο πυρήνας του ουρανίου διασπάται σε δύο μικρότερους και ελευθερώνεται ενέργεια.'),
+mk('fermi','Ένρικο Φέρμι','1901 – 1954',1901,'Ιταλία · ΗΠΑ','modern','bald','fission','Ο πρώτος πυρηνικός αντιδραστήρας','Στις 2 Δεκεμβρίου 1942, στο Σικάγο, η ομάδα του Φέρμι έθεσε σε λειτουργία τον πρώτο αντιδραστήρα με αυτοσυντηρούμενη αλυσιδωτή αντίδραση. Έλαβε το Νόμπελ Φυσικής το 1938.','Αλυσιδωτή αντίδραση','Τα νετρόνια της σχάσης προκαλούν νέες σχάσεις.'),
+mk('shockley','Μπαρντίν, Μπράταιν και Σόκλεϊ','1947',1947,'Bell Labs, ΗΠΑ','modern','glasses','chip','Το τρανζίστορ','Το 1947 οι Τζον Μπαρντίν, Γουόλτερ Μπράταιν και Γουίλιαμ Σόκλεϊ δημιούργησαν το πρώτο τρανζίστορ. Έλαβαν το Νόμπελ Φυσικής το 1956 και άνοιξαν τον δρόμο προς τους ηλεκτρονικούς υπολογιστές.','Τρανζίστορ','Ένα ημιαγωγό στοιχείο ενισχύει και διακόπτει ηλεκτρικά σήματα.'),
+mk('feynman','Ρίτσαρντ Φάινμαν','1918 – 1988',1918,'ΗΠΑ','modern','plain','quark','Η κβαντική ηλεκτροδυναμική','Ο Φάινμαν, ο Σουίνγκερ και ο Τομονάγκα ανέπτυξαν γύρω στο 1948 την κβαντική ηλεκτροδυναμική. Ο Φάινμαν εισήγαγε τα διαγράμματα που φέρουν το όνομά του. Έλαβαν το Νόμπελ Φυσικής το 1965.','Διαγράμματα Φάινμαν','Οπτικοποιούν τις αλληλεπιδράσεις σωματιδίων με απλά σχήματα.')
+);
+
+MORE.push(
+mk('maiman','Θίοντορ Μάιμαν','1927 – 2007',1927,'ΗΠΑ','contemporary','plain','laser','Το πρώτο λέιζερ','Το 1960 ο Μάιμαν παρήγαγε την πρώτη δέσμη λέιζερ με κρύσταλλο ρουμπινίου. Το λέιζερ βασίζεται στη διεγερμένη εκπομπή, που είχε προβλέψει ο Αϊνστάιν το 1917.','Λέιζερ','Διεγερμένα άτομα εκπέμπουν φως ίδιας φάσης και χρώματος.'),
+mk('gellmann','Μάρεϊ Γκελ-Μαν','1929 – 2019',1929,'ΗΠΑ','contemporary','glasses','quark','Τα κουάρκ','Το 1964 ο Γκελ-Μαν (και ανεξάρτητα ο Τσβάιγκ) πρότεινε ότι τα πρωτόνια και τα νετρόνια αποτελούνται από κουάρκ. Πειράματα σκέδασης στο SLAC το 1968 έδωσαν τις πρώτες πειραματικές ενδείξεις. Έλαβε το Νόμπελ Φυσικής το 1969.','Μοντέλο των κουάρκ','Τα αδρόνια αποτελούνται από κουάρκ με κλασματικό φορτίο.'),
+mk('penzias','Πένζιας και Γουίλσον','1964 – 1965',1964,'Bell Labs, ΗΠΑ','contemporary','glasses','pulsar','Το απομεινάρι της Μεγάλης Έκρηξης','Οι Άρνο Πένζιας και Ρόμπερτ Γουίλσον προσπαθούσαν να εξαλείψουν τον θόρυβο μιας κεραίας και ανακάλυψαν το 1965 την κοσμική ακτινοβολία υποβάθρου, το πιο ισχυρό τεκμήριο της Μεγάλης Έκρηξης. Έλαβαν το Νόμπελ Φυσικής το 1978.','Κοσμική ακτινοβολία υποβάθρου','Ομοιόμορφη ακτινοβολία μικροκυμάτων από κάθε κατεύθυνση.'),
+mk('bell','Τζόσελιν Μπελ','γεν. 1943',1943,'Βόρεια Ιρλανδία · Αγγλία','contemporary','bun','pulsar','Οι πάλσαρ','Το 1967, ως διδακτορική φοιτήτρια, η Τζόσελιν Μπελ εντόπισε σε καταγραφές ραδιοτηλεσκοπίου ένα σήμα με ακριβείς παλμούς, το πρώτο πάλσαρ, δηλαδή ένα άστρο νετρονίων που περιστρέφεται γρήγορα.','Ανακάλυψη πάλσαρ','Ραδιοπαλμοί με σταθερή περίοδο από περιστρεφόμενο άστρο νετρονίων.'),
+mk('binnig','Μπίνιγκ και Ρόρερ','1981',1981,'IBM Ζυρίχη','contemporary','glasses','tunnel','Το μικροσκόπιο σήραγγας','Οι Γκέρντ Μπίνιγκ και Χάινριχ Ρόρερ δημιούργησαν το 1981 το μικροσκόπιο σάρωσης σήραγγας, που επιτρέπει να «δούμε» μεμονωμένα άτομα. Έλαβαν το Νόμπελ Φυσικής το 1986.','Μικροσκόπιο σάρωσης σήραγγας','Το ρεύμα σήραγγας ανάμεσα σε ακίδα και επιφάνεια δίνει εικόνα των ατόμων.'),
+mk('bednorz','Μπέντνορτς και Μιούλερ','1986',1986,'IBM Ζυρίχη','contemporary','glasses','sclev','Υπεραγωγοί υψηλής θερμοκρασίας','Οι Γκέοργκ Μπέντνορτς και Αλεξ Μιούλερ βρήκαν το 1986 κεραμικά υλικά που γίνονται υπεραγωγοί σε πολύ υψηλότερες θερμοκρασίες από τα μέταλλα. Έλαβαν το Νόμπελ Φυσικής το 1987.','Υπεραγωγοί υψηλής θερμοκρασίας','Κεραμικά οξείδια του χαλκού γίνονται υπεραγωγοί σε περίπου 35 K και αργότερα πολύ υψηλότερα.'),
+mk('bec','Κόρνελ, Βίμαν και Κέτερλε','1995',1995,'ΗΠΑ · Γερμανία','contemporary','glasses','bec','Συμπύκνωμα Μπόζε – Αϊνστάιν','Το 1995 οι ομάδες των Έρικ Κόρνελ, Κάρλ Βίμαν και Βόλφγκανγκ Κέτερλε ψύχραναν άτομα σε θερμοκρασίες λίγο πάνω από το απόλυτο μηδέν και δημιούργησαν μια νέα κατάσταση της ύλης που είχε προβλεφθεί από τον Μπόζε και τον Αϊνστάιν. Έλαβαν το Νόμπελ Φυσικής το 2001.','Νέα κατάσταση της ύλης','Τα άτομα καταλαμβάνουν την ίδια κβαντική κατάσταση και συμπεριφέρονται ως ένα κύμα.'),
+mk('graphene','Αντρέ Γκέιμ και Κονσταντίν Νοβοσέλοφ','2004',2004,'Μάντσεστερ, Αγγλία','contemporary','glasses','hex','Το γραφένιο','Το 2004 οι Γκέιμ και Νοβοσέλοφ απομόνωσαν με αυτοκόλλητη ταινία ένα στρώμα άνθρακα πάχους ενός ατόμου, το γραφένιο. Έλαβαν το Νόμπελ Φυσικής το 2010.','Γραφένιο','Δισδιάστατο πλέγμα από άτομα άνθρακα σε εξάγωνα.'),
+mk('wz','Μποζόνια W και Z (CERN)','1983',1983,'CERN, Ελβετία','contemporary','ghost','higgs','Ομαδικό επίτευγμα','Το 1983 οι συνεργασίες UA1 και UA2 στο CERN, με επικεφαλής τον Κάρλο Ρούμπια και τον Σιμόν φαν ντερ Μέερ, ανίχνευσαν τα μποζόνια W και Z, που μεταφέρουν την ασθενή πυρηνική δύναμη. Η ανακάλυψη επιβεβαίωσε την ηλεκτρασθενή θεωρία.','Μεταφορείς της ασθενούς δύναμης','Συγκρούσεις πρωτονίων με αντιπρωτόνια παρήγαγαν τα W και Z.'),
+mk('darkenergy','Σκοτεινή ενέργεια','1998',1998,'Δύο διεθνείς ομάδες αστρονόμων','contemporary','ghost','expand','Ομαδικό επίτευγμα','Το 1998 δύο ανεξάρτητες ομάδες αστρονόμων, που μελέτησαν εκρήξεις υπερκαινοφανών, βρήκαν ότι η διαστολή του σύμπαντος επιταχύνεται. Η αιτία ονομάστηκε σκοτεινή ενέργεια. Οι Πέρλμουτερ, Σμιντ και Ράις έλαβαν το Νόμπελ Φυσικής το 2011.','Επιταχυνόμενη διαστολή','Μακρινοί υπερκαινοφανείς Ια είναι πιο αμυδροί από το αναμενόμενο.'),
+mk('higgs','Μποζόνιο Χιγκς','2012',2012,'CERN, Ελβετία','contemporary','ghost','higgs','Ομαδικό επίτευγμα','Το 2012 τα πειράματα ATLAS και CMS στο Μεγάλο Αδρονικό Επιταχυντή του CERN, με χιλιάδες ερευνητές, ανακοίνωσαν την ανίχνευση του μποζονίου Χιγκς, που είχε προβλεφθεί το 1964. Οι Χιγκς και Ενγκλέρ έλαβαν το Νόμπελ Φυσικής το 2013.','Μποζόνιο Χιγκς','Το πεδίο Χιγκς δίνει μάζα στα στοιχειώδη σωματίδια.'),
+mk('ligo','Βαρυτικά κύματα (LIGO/Virgo)','2015',2015,'ΗΠΑ · Ιταλία','contemporary','ghost','gwave','Ομαδικό επίτευγμα','Στις 14 Σεπτεμβρίου 2015 οι ανιχνευτές LIGO κατέγραψαν τα πρώτα βαρυτικά κύματα, από τη σύγκρουση δύο μαύρων τρυπών. Οι Βάις, Μπάρις και Θορν έλαβαν το Νόμπελ Φυσικής το 2017.','Ανίχνευση βαρυτικών κυμάτων','Συμβολόμετρα μετρούν μεταβολές μήκους μικρότερες από το μέγεθος του πρωτονίου.'),
+mk('eht','Πρώτη εικόνα μαύρης τρύπας','2019',2019,'Διεθνής συνεργασία','contemporary','ghost','hawking','Ομαδικό επίτευγμα','Το 2019 η συνεργασία Event Horizon Telescope συνδύασε ραδιοτηλεσκόπια σε όλο τον κόσμο και δημοσίευσε την πρώτη εικόνα της σκιάς μιας μαύρης τρύπας, στον γαλαξία M87.','Σκιά μαύρης τρύπας','Δίκτυο τηλεσκοπίων λειτουργεί ως ένα γιγάντιο τηλεσκόπιο.')
+);
+
+SCI.push(...MORE);
+const TLN = {wz:'W και Z',darkenergy:'Σκοτ. ενέργεια',higgs:'Higgs',ligo:'LIGO',eht:'EHT',graphene:'Γκέιμ',bec:'Κέτερλε',penzias:'Πένζιας',binnig:'Μπίνιγκ',bednorz:'Μπέντνορτς',antikythera:'Αντικύθηρα',compass:'Πυξίδα',glasses:'Γυαλιά',clockm:'Ρολόι',hero:'Ήρων',aristarchus:'Αρίσταρχος',democritus:'Δημόκριτος',shockley:'Σόκλεϊ'};
+const state = {era:'all', q:'', open:null};
+
+function renderTabs(){
+  const row = $('tabRow'); row.innerHTML = '';
+  const mk = (id, label) => {
+    const b = document.createElement('button');
+    b.className = 'tab-btn' + (state.era===id?' active':'');
+    b.textContent = label; b.onclick = () => { state.era = id; renderTabs(); renderList(); };
+    row.appendChild(b);
+  };
+  mk('all','Όλες οι εποχές');
+  ERAS.forEach(e => mk(e.id, e.n));
+}
+
+function filtered(){
+  const q = norm(state.q).trim();
+  return SCI.filter(s => (state.era==='all' || s.era===state.era) &&
+    (!q || norm([s.n,s.ln,s.tag,s.tags.join(' '),s.place,s.disc.map(d=>d.t).join(' ')].join(' ')).includes(q)))
+    .sort((a,b)=>a.b-b.b);
+}
+
+function renderList(){
+  const list = filtered();
+  $('tl').innerHTML = list.map(s => '<button class="tl-item" data-id="'+s.id+'"><span class="tl-dot"></span><span class="tl-y">'+s.yr.split(' – ')[0]+'</span><span class="tl-n">'+(TLN[s.id]||s.n.split(' ').slice(-1)[0])+'</span></button>').join('');
+  const host = $('scis'); host.innerHTML = '';
+  if (!list.length){ host.innerHTML = '<div class="empty">Δεν βρέθηκαν αποτελέσματα</div>'; return; }
+  ERAS.forEach(e => {
+    const items = list.filter(s => s.era===e.id);
+    if (!items.length) return;
+    host.insertAdjacentHTML('beforeend', '<div class="cat-heading">'+SVG(EMB[e.e],'ico ico-sm svg-i')+'<span>'+e.n+'</span></div><div class="era-note">'+e.r+'</div>');
+    const g = document.createElement('div'); g.className = 'sci-grid';
+    items.forEach(s => {
+      const c = document.createElement('button'); c.className = 'sci'; c.dataset.id = s.id;
+      c.innerHTML = avatar(s) + '<div class="sci-name">'+s.n+'</div><div class="sci-years">'+s.yr+'</div><div class="sci-tag">'+s.tag+'</div>';
+      g.appendChild(c);
+    });
+    host.appendChild(g);
+  });
+}
+
+document.addEventListener('click', ev => {
+  const t = ev.target.closest('.sci,.tl-item');
+  if (t && t.dataset.id) openSci(t.dataset.id);
+});
+$('searchInput').addEventListener('input', e => { state.q = e.target.value; renderList(); });
+
+let tabNow = 'bio';
+function openSci(id){
+  const s = SCI.find(x => x.id===id); if (!s) return;
+  state.open = id; tabNow = 'bio';
+  $('listView').style.display = 'none';
+  const dv = $('detailView'); dv.classList.add('on');
+  const era = ERAS.find(e => e.id===s.era);
+  dv.innerHTML = '<button class="back" id="backBtn">← Πίσω στη λίστα</button><div class="d-grid"><aside class="d-side">'+avatar(s)+'<div class="d-name">'+s.n+'</div><div class="d-meta">'+s.yr+'<br>'+s.place+'</div><div class="chips"><span class="chip">'+era.n+'</span>'+s.tags.map(t=>'<span class="chip">'+t+'</span>').join('')+'</div></aside><section class="d-main"><div class="d-tabs" id="dTabs"></div><div class="d-body" id="dBody"></div></section></div>';
+  $('backBtn').onclick = closeSci;
+  renderDetail(s);
+  window.scrollTo({top:0});
+}
+function closeSci(){
+  stopAnim(); state.open = null;
+  $('detailView').classList.remove('on'); $('detailView').innerHTML = '';
+  $('listView').style.display = '';
+}
+function renderDetail(s){
+  const tabs = [['bio','Ιστορία'],['disc','Ανακαλύψεις'],['exp','Πείραμα · Animation']];
+  const tb = $('dTabs'); tb.innerHTML = '';
+  tabs.forEach(t => { const b = document.createElement('button'); b.className = 'tab-btn' + (tabNow===t[0]?' active':''); b.textContent = t[1]; b.onclick = () => { tabNow = t[0]; renderDetail(s); }; tb.appendChild(b); });
+  stopAnim();
+  const body = $('dBody');
+  if (tabNow==='bio') body.innerHTML = s.bio.map(p=>'<p>'+p+'</p>').join('') + (s.q ? '<div class="quote">'+s.q+'</div>' : '');
+  if (tabNow==='disc') body.innerHTML = '<div class="disc">'+s.disc.map(d=>'<div class="disc-i"><div class="disc-y">'+d.y+'</div><div><div class="disc-t">'+d.t+'</div><div class="disc-d">'+d.d+'</div></div></div>').join('')+'</div>';
+  if (tabNow==='exp'){
+    body.innerHTML = '<h3 class="exp-h">'+SVG(EMB[s.id])+s.ex.t+'</h3><p>'+s.ex.d+'</p>' +
+      (s.ex.a ? '<div class="stage"><canvas id="cv" width="640" height="340"></canvas></div><div class="ctl" id="ctl"></div>' : '<div class="soon">Η διαδραστική προσομοίωση αυτού του πειράματος θα προστεθεί σύντομα.</div>');
+    if (s.ex.a) startAnim(s.ex.a);
+  }
+}
+
+let raf = 0, cur = null;
+function stopAnim(){ cancelAnimationFrame(raf); raf = 0; cur = null; }
+function C(){
+  const st = getComputedStyle(document.documentElement), g = n => st.getPropertyValue(n).trim();
+  return {ac:g('--accent'), tx:g('--text'), dim:g('--textDim'), bg:g('--track'), bl:g('--blue'), gr:g('--accent3'), ln:g('--gridStrong'), er:g('--danger')};
+}
+const MAKERS = {
+  pendulum(){
+    const g = 9.81; let L = 1.5, th = 0.45, w = 0, t = 0, lastCross = null, meas = null;
+    return {
+      controls:'<label>L = <input type="range" id="pL" min="0.5" max="3" step="0.1" value="1.5"> <span id="pLv">1,5 m</span></label>',
+      bind(){ const i = $('pL'); i.oninput = () => { L = +i.value; $('pLv').textContent = L.toFixed(1).replace('.',',')+' m'; th = 0.45; w = 0; meas = null; lastCross = null; t = 0; }; },
+      step(dt){ const n = 20, h = dt/n; for (let k=0;k<n;k++){ const a = -(g/L)*Math.sin(th); w += a*h; const p = th; th += w*h; t += h; if (p<0 && th>=0){ if (lastCross!==null) meas = t-lastCross; lastCross = t; } } },
+      draw(c,W,H,K){ const px = 90, ox = W/2, oy = 28, bx = ox + L*px*Math.sin(th), by = oy + L*px*Math.cos(th);
+        c.strokeStyle = K.ln; c.lineWidth = 3; c.beginPath(); c.moveTo(ox-60,oy); c.lineTo(ox+60,oy); c.stroke();
+        c.setLineDash([4,5]); c.lineWidth = 1; c.beginPath(); c.arc(ox,oy,L*px,Math.PI/2-0.45,Math.PI/2+0.45); c.stroke(); c.setLineDash([]);
+        c.strokeStyle = K.dim; c.lineWidth = 1.5; c.beginPath(); c.moveTo(ox,oy); c.lineTo(bx,by); c.stroke();
+        c.fillStyle = K.ac; c.beginPath(); c.arc(bx,by,11,0,7); c.fill();
+        return 'T θεωρ. = '+(2*Math.PI*Math.sqrt(L/g)).toFixed(2).replace('.',',')+' s' + (meas?'  ·  μετρημένη = '+meas.toFixed(2).replace('.',',')+' s':''); }
+    };
+  },
+  kepler(){
+    const e = 0.6, pts = []; let x = 1+e, y = 0, vx = 0, vy = Math.sqrt((1-e)/(1+e)); const h = 0.01;
+    for (let i=0;i<640;i++){ pts.push([x,y]); for (let k=0;k<5;k++){ const r = Math.hypot(x,y), ax = -x/(r*r*r), ay = -y/(r*r*r); vx += ax*h/5; vy += ay*h/5; x += vx*h/5; y += vy*h/5; } }
+    let T = 0; const N = 628;
+    return {
+      controls:'',
+      step(dt){ T += dt*1.6; },
+      draw(c,W,H,K){ const s = 125, ox = W/2-35, oy = H/2, P = ([a,b]) => [ox+a*s, oy-b*s];
+        const sector = (i0,col) => { c.fillStyle = col; c.beginPath(); c.moveTo(ox,oy); for (let i=i0;i<=i0+45;i++){ const q = P(pts[i%N]); c.lineTo(q[0],q[1]); } c.closePath(); c.fill(); };
+        sector(0,K.bl+'66'); sector(Math.round(N/2-22),K.gr+'66');
+        c.strokeStyle = K.ln; c.lineWidth = 1.2; c.beginPath(); pts.slice(0,N).forEach((p,i)=>{ const q = P(p); i?c.lineTo(q[0],q[1]):c.moveTo(q[0],q[1]); }); c.closePath(); c.stroke();
+        c.fillStyle = K.ac; c.beginPath(); c.arc(ox,oy,10,0,7); c.fill();
+        const idx = Math.floor(T/h)%N, q = P(pts[idx]); c.strokeStyle = K.dim; c.lineWidth = 1; c.beginPath(); c.moveTo(ox,oy); c.lineTo(q[0],q[1]); c.stroke();
+        c.fillStyle = K.tx; c.beginPath(); c.arc(q[0],q[1],7,0,7); c.fill();
+        return 'Ο Ήλιος σε μία εστία · e = 0,6'; }
+    };
+  },
+  maxwell(){
+    let t = 0;
+    return {
+      controls:'',
+      step(dt){ t += dt; },
+      draw(c,W,H,K){ const oy = H/2+10, x0 = 40, x1 = W-40, k = 0.045, w = 3.2;
+        c.strokeStyle = K.ln; c.lineWidth = 1.5; c.beginPath(); c.moveTo(x0,oy); c.lineTo(x1,oy); c.stroke();
+        for (let x = x0; x<=x1; x += 13){ const a = Math.sin(k*(x-x0)-w*t)*95;
+          c.strokeStyle = K.ac; c.lineWidth = 2; c.beginPath(); c.moveTo(x,oy); c.lineTo(x,oy-a); c.stroke();
+          c.strokeStyle = K.bl; c.beginPath(); c.moveTo(x,oy); c.lineTo(x+a*0.45,oy+a*0.3); c.stroke(); }
+        c.fillStyle = K.ac; c.font = '600 14px Inter,sans-serif'; c.fillText('E',W-80,38); c.fillStyle = K.bl; c.fillText('B',W-55,38); c.fillStyle = K.dim; c.fillText('→ διάδοση',W-120,H-18);
+        return 'Ε ⟂ Β ⟂ διεύθυνση διάδοσης'; }
+    };
+  },
+  rutherford(){
+    const nx = 430, ny = 170, k = 450000, v = 190, bs = [-70,-48,-30,-16,-5,8,22,40,62];
+    const spawn = (b,d) => ({b, x:-d, y:ny+b, vx:v, vy:0, tr:[], t:0});
+    let ps = bs.map((b,i)=>spawn(b, 30+i*0)); ps.forEach((p,i)=>{ p.x = 12; p.t = -i*0.35; });
+    return {
+      controls:'',
+      step(dt){ ps.forEach((p,i)=>{ if (p.t<0){ p.t += dt; return; } const n = 40, h = dt/n; for (let j=0;j<n;j++){ const dx = p.x-nx, dy = p.y-ny, r2 = dx*dx+dy*dy, r = Math.sqrt(r2); const a = k/(r2*r); p.vx += a*dx*h; p.vy += a*dy*h; p.x += p.vx*h; p.y += p.vy*h; }
+        p.tr.push([p.x,p.y]); if (p.tr.length>80) p.tr.shift(); p.t += dt; if (p.x<-20||p.x>670||p.y<-20||p.y>360||p.t>6){ ps[i] = spawn(p.b,0); ps[i].x = 12; ps[i].t = -0.2; } }); },
+      draw(c,W,H,K){ c.fillStyle = K.ac; c.beginPath(); c.arc(nx,ny,9,0,7); c.fill(); c.fillStyle = K.bg; c.font = '700 13px Inter,sans-serif'; c.textAlign = 'center'; c.fillText('+',nx,ny+4.5); c.textAlign = 'left';
+        ps.forEach(p=>{ if (p.t<0) return; c.strokeStyle = K.bl+'99'; c.lineWidth = 1.5; c.beginPath(); p.tr.forEach((q,i)=>i?c.lineTo(q[0],q[1]):c.moveTo(q[0],q[1])); c.stroke(); c.fillStyle = K.bl; c.beginPath(); c.arc(p.x,p.y,4,0,7); c.fill(); });
+        return 'Σωματίδια α και πυρήνας (+)'; }
+    };
+  },
+  decay(){
+    const cols = 24, rows = 10, N = cols*rows, T12 = 2; let alive, t, hist;
+    const reset = () => { alive = new Array(N).fill(true); t = 0; hist = [[0,N]]; }; reset();
+    return {
+      controls:'<button id="rs">Επανεκκίνηση</button>',
+      bind(){ $('rs').onclick = reset; },
+      step(dt){ if (t>5*T12) { reset(); } const p = 1-Math.pow(2,-dt/T12); alive.forEach((a,i)=>{ if (a && Math.random()<p) alive[i] = false; }); t += dt; hist.push([t, alive.filter(Boolean).length]); },
+      draw(c,W,H,K){ const gx = 30, gy = 22, cell = 18;
+        alive.forEach((a,i)=>{ const x = gx+(i%cols)*cell+cell/2, y = gy+Math.floor(i/cols)*cell+cell/2; c.fillStyle = a?K.ac:K.ln+'55'; c.beginPath(); c.arc(x,y,6,0,7); c.fill(); });
+        const cx = 30, cy = 322, cw = W-60, ch = 70; c.strokeStyle = K.ln; c.lineWidth = 1; c.beginPath(); c.moveTo(cx,cy-ch); c.lineTo(cx,cy); c.lineTo(cx+cw,cy); c.stroke();
+        c.setLineDash([4,4]); c.strokeStyle = K.dim; c.beginPath(); for (let i=0;i<=100;i++){ const tt = i/100*5*T12, y = cy-ch*Math.pow(2,-tt/T12); i?c.lineTo(cx+cw*i/100,y):c.moveTo(cx,y); } c.stroke(); c.setLineDash([]);
+        c.strokeStyle = K.ac; c.lineWidth = 2; c.beginPath(); hist.forEach((h,i)=>{ const x = cx+cw*h[0]/(5*T12), y = cy-ch*h[1]/N; i?c.lineTo(x,y):c.moveTo(x,y); }); c.stroke();
+        c.fillStyle = K.dim; c.font = '12px Inter,sans-serif'; c.fillText('N(t) · διακεκομμένη: θεωρία',cx+6,cy-ch-6);
+        return 'Ν = '+alive.filter(Boolean).length+' από '+N+' · t₁/₂ = 2 s'; }
+    };
+  },
+  eratosthenes(){
+    let t = 0;
+    return {
+      controls:'',
+      step(dt){ t += dt; },
+      draw(c,W,H,K){ const cx = W/2+30, cy = 215, R = 112, ang = 0.5, sx = cx, sy = cy-R, ax = cx+R*Math.sin(ang), ay = cy-R*Math.cos(ang);
+        const surf = x => cy-Math.sqrt(Math.max(0,R*R-(x-cx)*(x-cx)));
+        c.strokeStyle = K.ln; c.lineWidth = 1.5; c.beginPath(); c.arc(cx,cy,R,0,7); c.stroke();
+        const tipx = ax+24*Math.sin(ang), tipy = ay-24*Math.cos(ang), hitx = tipx, hity = surf(hitx);
+        c.strokeStyle = K.ac; c.lineWidth = 1.5; c.setLineDash([7,6]); c.lineDashOffset = -t*40;
+        [sx-40,sx-20,sx,sx+20,sx+40,ax+50].forEach(x=>{ c.beginPath(); c.moveTo(x,12); c.lineTo(x,surf(x)); c.stroke(); });
+        c.beginPath(); c.moveTo(tipx,12); c.lineTo(tipx,hity); c.stroke();
+        c.setLineDash([]); c.lineDashOffset = 0;
+        c.strokeStyle = K.er; c.lineWidth = 3; c.beginPath(); c.moveTo(ax,ay); c.lineTo(hitx,hity); c.stroke();
+        const stick = (x,y,a)=>{ c.strokeStyle = K.tx; c.lineWidth = 3; c.beginPath(); c.moveTo(x,y); c.lineTo(x+24*Math.sin(a),y-24*Math.cos(a)); c.stroke(); };
+        stick(sx,sy,0); stick(ax,ay,ang);
+        c.strokeStyle = K.dim; c.lineWidth = 1; c.beginPath(); c.moveTo(cx,cy); c.lineTo(sx,sy); c.moveTo(cx,cy); c.lineTo(ax,ay); c.stroke();
+        c.beginPath(); c.arc(cx,cy,34,-Math.PI/2,-Math.PI/2+ang); c.stroke();
+        c.fillStyle = K.tx; c.font = '13px Inter,sans-serif'; c.fillText('Συήνη',sx-62,sy+4); c.fillText('Αλεξάνδρεια',ax+14,ay+14); c.fillText('θ',cx+8,cy-40); c.fillStyle = K.dim; c.fillText('ακτίνες Ήλιου (παράλληλες)',20,24);
+        c.fillStyle = K.er; c.fillText('σκιά',ax+30,ay-30);
+        return 'θ ≈ 7,2° = 1/50 του κύκλου → 50 × 5000 σταδ. ≈ 250.000 σταδ.'; }
+    };
+  }
+};
+
+function startAnim(key){
+  stopAnim();
+  const cv = $('cv'), c = cv.getContext('2d'), W = cv.width, H = cv.height, A = MAKERS[key](); cur = A;
+  let running = true, last = performance.now();
+  $('ctl').innerHTML = '<button id="pp">Παύση</button>' + A.controls + '<span class="readout" id="ro"></span>';
+  $('pp').onclick = () => { running = !running; $('pp').textContent = running ? 'Παύση' : 'Εκκίνηση'; };
+  if (A.bind) A.bind();
+  const loop = now => {
+    const dt = Math.min(0.05,(now-last)/1000); last = now;
+    if (running) A.step(dt);
+    const K = C(); c.fillStyle = K.bg; c.fillRect(0,0,W,H);
+    const ro = A.draw(c,W,H,K); const r = $('ro'); if (r) r.textContent = ro||'';
+    raf = requestAnimationFrame(loop);
+  };
+  raf = requestAnimationFrame(loop);
+}
+
+const E = {
+ e1:'<rect x="5" y="7" width="38" height="28" rx="3"/><path d="M10 40h28M13 29h15L13 17z"/><path d="M33 18h5M33 24h5"/>',
+ e2:'<path d="M6 12h36M6 24h36M6 36h36"/><circle cx="16" cy="12" r="3.500" fill="currentColor"/><circle cx="32" cy="24" r="3.500" fill="currentColor"/><circle cx="22" cy="36" r="3.500" fill="currentColor"/>',
+ e3:'<circle cx="24" cy="24" r="18"/><circle cx="24" cy="24" r="10"/><circle cx="24" cy="24" r="2.500" fill="currentColor"/><path d="M24 24 41 7M41 7v6M41 7h-6"/>',
+ e4:'<path d="M19 6h10M21 6v13L9 38a3 3 0 0 0 2.600 4.500h24.800A3 3 0 0 0 39 38L27 19V6"/><path d="M14 32h20"/><circle cx="21" cy="37" r="1.400" fill="currentColor"/><circle cx="28" cy="35" r="1.400" fill="currentColor"/>',
+ e5:'<path d="M6 24h12M18 24l8-10h10M18 24h18M18 24l8 10h10"/><circle cx="6" cy="24" r="2.200" fill="currentColor"/><circle cx="41" cy="14" r="3" fill="currentColor"/><circle cx="41" cy="24" r="3" fill="currentColor"/><circle cx="41" cy="34" r="3" fill="currentColor"/>'
+};
+const APPS = [['Class','διαχείριση μαθήματος','e1','#'],['Sim','προσομοιώσεις','e2','https://tasossl.github.io/physics-sims/'],['Test','ερωτηματολόγια','e3','#'],['Gen','γεννήτορας ασκήσεων','e4','#'],['Evo','ιστορία της φυσικής','e5','#']];
+$('poRow').innerHTML = APPS.map(a => '<a class="po'+(a[0]==='Evo'?' cur':'')+'" href="'+a[3]+'"><span class="po-c">'+SVG(E[a[2]],'svg-i','0 0 48 48')+'</span><span class="po-n">'+a[0]+' <span>Physics</span></span><span class="po-s">'+a[1]+'</span></a>').join('');
+
+  const SKINS = [["blueprint","DarkBlue",""],["classic","DarkBlack",""],["minimal","LightOrange",""],["gr","Grey",""],["n01","WhiteBlue",""],["n08","SkyBlue",""],["n12","WhiteDBlue",""],["n16","GreyDarkB",""],["n13","WhiteBGrey",""],["g16","GreyDBlue",""],["n15","SkyDBlue",""],["n18","DarkGrey",""],["n23","NavyLight",""]];
+  function setSkin(n){
+    document.documentElement.dataset.skin = n;
+    const sel = $('skinSel');
+    if (sel){
+      [].forEach.call(sel.options, o => {
+        if (o.value) o.textContent = (o.value === n ? '✓ ' : '') + (o.dataset.l || o.textContent.replace(/^✓ /,''));
+      });
+      sel.selectedIndex = 0;
+    }
+    try{ localStorage.setItem('sim-skin', n); }catch(_){}
+  }
+  (function(){
+    const sel = $('skinSel');
+    const o0 = document.createElement('option');
+    o0.textContent = 'Skins'; o0.value = ''; o0.hidden = true; sel.appendChild(o0);
+    SKINS.forEach(k => {
+      const o = document.createElement('option');
+      o.value = k[0]; o.textContent = k[1]; o.dataset.l = k[1];
+      sel.appendChild(o);
+    });
+    sel.addEventListener('change', () => { if (sel.value) setSkin(sel.value); });
+  })();
+  let skin0 = 'blueprint';
+  try{ skin0 = localStorage.getItem('sim-skin') || 'blueprint'; }catch(_){}
+  if (!SKINS.some(k => k[0] === skin0)) skin0 = 'blueprint';
+  setSkin(skin0);
+  renderTabs(); renderList();
+  (function(){ const h = location.hash.slice(1).split('/'); const s = SCI.find(x => x.id===h[0]); if (s){ openSci(s.id); if (h[1]==='exp'||h[1]==='disc'){ tabNow = h[1]; renderDetail(s); } } })();
+</script>
+</body>
+</html>
