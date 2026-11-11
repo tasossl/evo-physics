@@ -345,6 +345,42 @@ footer{
 .ctl input[type=range]{accent-color:var(--accent);width:170px;}
 .readout{margin-left:auto;color:var(--htext);}
 .soon{padding:26px 16px;text-align:center;border:1px dashed var(--accent-dim);border-radius:var(--r-box);background:var(--accent-soft);color:var(--textDim);font-family:'IBM Plex Mono',monospace;font-size:12.5px;}
+/* ===== Καρτέλα «Αναλυτικά» ===== */
+.an-sec{margin:0 0 16px;padding:14px 16px 12px;background:var(--panel2);border:1px solid var(--border);border-radius:var(--r-box);}
+.an-sec h4{display:flex;align-items:center;gap:10px;margin:0 0 10px;font-family:'Oswald',sans-serif;font-weight:600;font-size:17px;letter-spacing:.02em;color:var(--text);}
+.an-n{flex:none;display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--accent);color:var(--onAccent);font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;}
+.an-sec p{margin:0 0 10px;}
+.an-sec ul{margin:0 0 10px;padding-left:20px;}
+.an-sec li{margin:0 0 5px;}
+.fm{margin:10px 0 12px;padding:10px 14px;border-left:3px solid var(--accent);background:var(--accent-soft);border-radius:0 var(--r-box) var(--r-box) 0;font-family:'IBM Plex Mono',monospace;font-size:15px;color:var(--text);overflow-x:auto;white-space:nowrap;}
+.fm small{display:block;margin-top:4px;font-size:11.5px;color:var(--textDim);white-space:normal;}
+.an-tbl{width:100%;border-collapse:collapse;margin:8px 0 12px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;}
+.an-tbl th,.an-tbl td{padding:6px 8px;text-align:right;border-bottom:1px solid var(--border);}
+.an-tbl th:first-child,.an-tbl td:first-child{text-align:left;}
+.an-tbl th{color:var(--textDim);font-weight:500;}
+.an-calc{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:6px 0 4px;padding:10px 12px;border:1px dashed var(--accent-dim);border-radius:var(--r-box);font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--textDim);}
+.an-calc input{width:90px;padding:6px 10px;border-radius:var(--r-pill);border:1px solid var(--border);background:var(--panel);color:var(--text);font-family:inherit;font-size:13px;text-align:center;}
+.an-calc input:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.an-calc b{color:var(--atext);}
+.fig{margin:12px 0 14px;padding:6px 6px 2px;border:1px solid var(--border);border-radius:var(--r-box);background:var(--track);}
+.fig svg{display:block;width:100%;height:auto;}
+.fig figcaption{padding:6px 10px 6px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;line-height:1.5;color:var(--textDim);}
+.fl{fill:none;stroke:var(--gridStrong);stroke-width:1.5;}
+.fd{fill:none;stroke:var(--gridStrong);stroke-width:1;stroke-dasharray:4 4;}
+.fg{stroke:var(--border);stroke-width:1;}
+.fa{fill:none;stroke:var(--accent);stroke-width:2;}
+.fb{fill:none;stroke:var(--blue);stroke-width:2;}
+.fdash{stroke-dasharray:7 5;}
+.fh{fill:var(--accent);stroke:none;}
+.fs{fill:var(--accent);}
+.fp{fill:var(--text);}
+.fo{fill:var(--track);stroke:var(--gridStrong);stroke-width:1.5;}
+.fz1{fill:var(--blue);fill-opacity:.38;stroke:var(--blue);stroke-width:1;}
+.fz2{fill:var(--accent3);fill-opacity:.38;stroke:var(--accent3);stroke-width:1;}
+.ft{fill:var(--textDim);font:12.5px 'IBM Plex Mono',monospace;}
+.fx{fill:var(--text);font:13px 'IBM Plex Mono',monospace;}
+.sci-on{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.02em;color:var(--atext);margin-top:-2px;}
+.d-on{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--atext);margin:0 0 4px;}
 .partof{margin:46px 0 4px;border-top:1px solid var(--grid);padding-top:22px;}
 .po-h{display:flex;align-items:center;gap:14px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.3em;color:var(--hdim);text-transform:uppercase;margin-bottom:18px;}
 .po-h::before,.po-h::after{content:"";flex:1;height:1px;background:var(--grid);}
@@ -714,6 +750,25 @@ mk('eht','Πρώτη εικόνα μαύρης τρύπας','2019',2019,'Διε
 );
 
 SCI.push(...MORE);
+/* Όνομα στη γλώσσα καταγωγής (οι Έλληνες μένουν ως έχουν). Το πεδίο 'on' εμφανίζεται κάτω από το όνομα. */
+const ON = {
+ alhazen:'Ibn al-Haytham · ابن الهيثم', copernicus:'Mikołaj Kopernik', galileo:'Galileo Galilei', kepler:'Johannes Kepler', newton:'Isaac Newton',
+ faraday:'Michael Faraday', maxwell:'James Clerk Maxwell', curie:'Maria Skłodowska-Curie', rutherford:'Ernest Rutherford', einstein:'Albert Einstein',
+ bohr:'Niels Bohr', hawking:'Stephen Hawking', zhangheng:'Zhāng Héng · 张衡', albiruni:'Abū Rayḥān al-Bīrūnī · أبو الريحان البيروني',
+ gilbert:'William Gilbert', snell:'Willebrord Snel van Royen (Snellius)', torricelli:'Evangelista Torricelli', pascal:'Blaise Pascal', boyle:'Robert Boyle',
+ hooke:'Robert Hooke', romer:'Ole Rømer', huygens:'Christiaan Huygens', newcomen:'Thomas Newcomen', bernoulli:'Daniel Bernoulli',
+ musschenbroek:'Pieter van Musschenbroek', franklin:'Benjamin Franklin', watt:'James Watt', coulomb:'Charles-Augustin de Coulomb', cavendish:'Henry Cavendish',
+ volta:'Alessandro Volta', young:'Thomas Young', oersted:'Hans Christian Ørsted', ampere:'André-Marie Ampère', carnot:'Sadi Carnot', ohm:'Georg Simon Ohm',
+ joule:'James Prescott Joule', fizeau:'Hippolyte Fizeau', foucault:'Léon Foucault', clausius:'Rudolf Clausius', kirchhoff:'Gustav Kirchhoff',
+ boltzmann:'Ludwig Boltzmann', edison:'Thomas Edison', tesla:'Nikola Tesla · Никола Тесла', hertz:'Heinrich Hertz', michelson:'Albert A. Michelson',
+ roentgen:'Wilhelm Conrad Röntgen', becquerel:'Henri Becquerel', thomson:'J. J. Thomson', planck:'Max Planck', onnes:'Heike Kamerlingh Onnes',
+ eddington:'Arthur Eddington', debroglie:'Louis de Broglie', pauli:'Wolfgang Pauli', schrodinger:'Erwin Schrödinger', heisenberg:'Werner Heisenberg',
+ dirac:'Paul Dirac', hubble:'Edwin Hubble', chadwick:'James Chadwick', anderson:'Carl Anderson', meitner:'Lise Meitner', fermi:'Enrico Fermi',
+ shockley:'John Bardeen · Walter Brattain · William Shockley', feynman:'Richard Feynman', maiman:'Theodore Maiman', gellmann:'Murray Gell-Mann',
+ penzias:'Arno Penzias · Robert Wilson', bell:'Jocelyn Bell Burnell', binnig:'Gerd Binnig · Heinrich Rohrer', bednorz:'J. Georg Bednorz · K. Alex Müller',
+ bec:'Eric Cornell · Carl Wieman · Wolfgang Ketterle', graphene:'Andre Geim · Konstantin Novoselov'
+};
+SCI.forEach(s => { if (ON[s.id]) s.on = ON[s.id]; });
 const TLN = {wz:'W και Z',darkenergy:'Σκοτ. ενέργεια',higgs:'Higgs',ligo:'LIGO',eht:'EHT',graphene:'Γκέιμ',bec:'Κέτερλε',penzias:'Πένζιας',binnig:'Μπίνιγκ',bednorz:'Μπέντνορτς',antikythera:'Αντικύθηρα',compass:'Πυξίδα',glasses:'Γυαλιά',clockm:'Ρολόι',hero:'Ήρων',aristarchus:'Αρίσταρχος',democritus:'Δημόκριτος',shockley:'Σόκλεϊ'};
 const state = {era:'all', q:'', open:null};
 
@@ -732,7 +787,7 @@ function renderTabs(){
 function filtered(){
   const q = norm(state.q).trim();
   return SCI.filter(s => (state.era==='all' || s.era===state.era) &&
-    (!q || norm([s.n,s.ln,s.tag,s.tags.join(' '),s.place,s.disc.map(d=>d.t).join(' ')].join(' ')).includes(q)))
+    (!q || norm([s.n,s.on||'',s.ln,s.tag,s.tags.join(' '),s.place,s.disc.map(d=>d.t).join(' ')].join(' ')).includes(q)))
     .sort((a,b)=>a.b-b.b);
 }
 
@@ -748,7 +803,7 @@ function renderList(){
     const g = document.createElement('div'); g.className = 'sci-grid';
     items.forEach(s => {
       const c = document.createElement('button'); c.className = 'sci'; c.dataset.id = s.id;
-      c.innerHTML = avatar(s) + '<div class="sci-name">'+s.n+'</div><div class="sci-years">'+s.yr+'</div><div class="sci-tag">'+s.tag+'</div>';
+      c.innerHTML = avatar(s) + '<div class="sci-name">'+s.n+'</div>'+(s.on?'<div class="sci-on">'+s.on+'</div>':'')+'<div class="sci-years">'+s.yr+'</div><div class="sci-tag">'+s.tag+'</div>';
       g.appendChild(c);
     });
     host.appendChild(g);
@@ -768,7 +823,7 @@ function openSci(id){
   $('listView').style.display = 'none';
   const dv = $('detailView'); dv.classList.add('on');
   const era = ERAS.find(e => e.id===s.era);
-  dv.innerHTML = '<button class="back" id="backBtn">← Πίσω στη λίστα</button><div class="d-grid"><aside class="d-side">'+avatar(s)+'<div class="d-name">'+s.n+'</div><div class="d-meta">'+s.yr+'<br>'+s.place+'</div><div class="chips"><span class="chip">'+era.n+'</span>'+s.tags.map(t=>'<span class="chip">'+t+'</span>').join('')+'</div></aside><section class="d-main"><div class="d-tabs" id="dTabs"></div><div class="d-body" id="dBody"></div></section></div>';
+  dv.innerHTML = '<button class="back" id="backBtn">← Πίσω στη λίστα</button><div class="d-grid"><aside class="d-side">'+avatar(s)+'<div class="d-name">'+s.n+'</div>'+(s.on?'<div class="d-on">'+s.on+'</div>':'')+'<div class="d-meta">'+s.yr+'<br>'+s.place+'</div><div class="chips"><span class="chip">'+era.n+'</span>'+s.tags.map(t=>'<span class="chip">'+t+'</span>').join('')+'</div></aside><section class="d-main"><div class="d-tabs" id="dTabs"></div><div class="d-body" id="dBody"></div></section></div>';
   $('backBtn').onclick = closeSci;
   renderDetail(s);
   window.scrollTo({top:0});
@@ -779,19 +834,123 @@ function closeSci(){
   $('listView').style.display = '';
 }
 function renderDetail(s){
-  const tabs = [['bio','Ιστορία'],['disc','Ανακαλύψεις'],['exp','Πείραμα · Animation']];
+  const tabs = [['bio','Ιστορία'],['disc','Ανακαλύψεις'],['an','Αναλυτικά'],['exp','Πείραμα · Animation']];
   const tb = $('dTabs'); tb.innerHTML = '';
   tabs.forEach(t => { const b = document.createElement('button'); b.className = 'tab-btn' + (tabNow===t[0]?' active':''); b.textContent = t[1]; b.onclick = () => { tabNow = t[0]; renderDetail(s); }; tb.appendChild(b); });
   stopAnim();
   const body = $('dBody');
   if (tabNow==='bio') body.innerHTML = s.bio.map(p=>'<p>'+p+'</p>').join('') + (s.q ? '<div class="quote">'+s.q+'</div>' : '');
   if (tabNow==='disc') body.innerHTML = '<div class="disc">'+s.disc.map(d=>'<div class="disc-i"><div class="disc-y">'+d.y+'</div><div><div class="disc-t">'+d.t+'</div><div class="disc-d">'+d.d+'</div></div></div>').join('')+'</div>';
+  if (tabNow==='an'){
+    const A = AN[s.id];
+    body.innerHTML = A ? A.map((x,i)=>'<section class="an-sec"><h4><span class="an-n">'+(i+1)+'</span>'+x.h+'</h4>'+x.html+'</section>').join('')
+      : '<div class="soon">Η αναλυτική εξήγηση των ανακαλύψεων του/της «'+s.n+'» θα προστεθεί σύντομα.</div>';
+    if (A && AN_BIND[s.id]) AN_BIND[s.id]();
+  }
   if (tabNow==='exp'){
     body.innerHTML = '<h3 class="exp-h">'+SVG(EMB[s.id])+s.ex.t+'</h3><p>'+s.ex.d+'</p>' +
       (s.ex.a ? '<div class="stage"><canvas id="cv" width="640" height="340"></canvas></div><div class="ctl" id="ctl"></div>' : '<div class="soon">Η διαδραστική προσομοίωση αυτού του πειράματος θα προστεθεί σύντομα.</div>');
     if (s.ex.a) startAnim(s.ex.a);
   }
 }
+
+/* ===== Αναλυτικά: ανά επιστήμονα, λίστα ενοτήτων {h: τίτλος, html: περιεχόμενο} =====
+   Όποιος δεν έχει εγγραφή εδώ δείχνει «θα προστεθεί σύντομα». Προσθέτεις νέα εγγραφή με το id του επιστήμονα. */
+/* ===== Σχήματα SVG (χρώματα από το τρέχον skin μέσω κλάσεων) ===== */
+const N1 = n => (+n).toFixed(1);
+const T_ = (x,y,t,cls,anc) => '<text x="'+N1(x)+'" y="'+N1(y)+'" class="'+(cls||'ft')+'"'+(anc?' text-anchor="'+anc+'"':'')+'>'+t+'</text>';
+const L_ = (x1,y1,x2,y2,cls) => '<line x1="'+N1(x1)+'" y1="'+N1(y1)+'" x2="'+N1(x2)+'" y2="'+N1(y2)+'" class="'+cls+'"/>';
+const D_ = (x,y,r,cls) => '<circle cx="'+N1(x)+'" cy="'+N1(y)+'" r="'+r+'" class="'+cls+'"/>';
+function AR_(x1,y1,x2,y2,cls){ const g = Math.atan2(y2-y1,x2-x1), s = 8, p = d => N1(x2-s*Math.cos(g+d))+','+N1(y2-s*Math.sin(g+d));
+  return L_(x1,y1,x2,y2,cls)+'<polygon class="fh" points="'+N1(x2)+','+N1(y2)+' '+p(-0.4)+' '+p(0.4)+'"/>'; }
+function FIG_(vb, inner, cap){ return '<figure class="fig"><svg viewBox="0 0 '+vb+'" role="img" aria-hidden="true">'+inner+'</svg><figcaption>'+cap+'</figcaption></figure>'; }
+
+function figAnatomy(){
+  const a=250, e=.8, c=a*e, b=a*Math.sqrt(1-e*e), cx=350, cy=170, sx=cx+c, th=125*Math.PI/180;
+  const r = a*(1-e*e)/(1+e*Math.cos(th)), px = sx+r*Math.cos(th), py = cy-r*Math.sin(th);
+  let s = '<ellipse class="fl" cx="'+cx+'" cy="'+cy+'" rx="'+a+'" ry="'+N1(b)+'"/>';
+  s += L_(cx-a-12,cy,cx+a+12,cy,'fd')+L_(cx,cy-b-10,cx,cy+b+10,'fd');
+  s += L_(cx-a,cy,cx,cy,'fb')+L_(cx,cy,cx,cy-b,'fb')+L_(cx,cy,sx,cy,'fa');
+  s += T_(cx-a/2,cy-9,'a','fx','middle')+T_(cx+9,cy-b/2,'b','fx')+T_(cx+c/2,cy+21,'c','fx','middle');
+  s += D_(cx,cy,3,'fp')+D_(cx-c,cy,5,'fo')+T_(cx-c,cy+22,'F₂','ft','middle');
+  s += D_(cx-a,cy,3.5,'fp')+D_(cx+a,cy,3.5,'fp')+T_(cx-a,cy-14,'αφήλιο','ft','middle')+T_(cx+a,cy-14,'περιήλιο','ft','middle');
+  s += L_(sx,cy,px,py,'fa')+'<path class="fd" d="M'+N1(sx+44)+','+cy+' A44 44 0 0 0 '+N1(sx+44*Math.cos(th))+','+N1(cy-44*Math.sin(th))+'"/>';
+  s += T_(sx+62*Math.cos(1.1),cy-62*Math.sin(1.1),'θ','fx','middle')+T_((sx+px)/2+9,(cy+py)/2+6,'r','fx');
+  s += D_(sx,cy,9,'fs')+T_(sx,cy+28,'F₁ · Ήλιος','ft','middle')+D_(px,py,6,'fp')+T_(px-12,py-9,'P','fx','end');
+  return FIG_('700 340', s, 'Έλλειψη με τον Ήλιο στην εστία F₁. Εκκεντρότητα e = c/a. Για να φαίνεται καθαρά έχει σχεδιαστεί με e = 0,8, ενώ στους πλανήτες είναι πολύ μικρότερη.');
+}
+function figSectors(){
+  const a=270, e=.75, b=a*Math.sqrt(1-e*e), c=a*e, cx=350, cy=195, sx=cx+c, dM=.55;
+  const Ek = M => { let E = M; for (let i=0;i<40;i++) E -= (E-e*Math.sin(E)-M)/(1-e*Math.cos(E)); return E; };
+  const P = M => { const E = Ek(M); return [sx+a*(Math.cos(E)-e), cy-b*Math.sin(E)]; };
+  const sec = (M0,cls) => { let d = 'M'+N1(sx)+','+cy; for (let i=0;i<=30;i++){ const q = P(M0-dM/2+dM*i/30); d += ' L'+N1(q[0])+','+N1(q[1]); } return '<path class="'+cls+'" d="'+d+' Z"/>'; };
+  const pp = P(0), pa = P(Math.PI);
+  let s = '<ellipse class="fl" cx="'+cx+'" cy="'+cy+'" rx="'+a+'" ry="'+N1(b)+'"/>'+sec(0,'fz1')+sec(Math.PI,'fz2');
+  s += T_(sx+36,cy-24,'A₁','fx','middle')+T_(cx-30,cy+4,'A₂','fx','middle');
+  s += D_(sx,cy,9,'fs')+T_(sx,cy+30,'Ήλιος','ft','middle');
+  s += AR_(pp[0],pp[1],pp[0],pp[1]-76,'fa')+D_(pp[0],pp[1],6,'fp')+T_(pp[0]+12,pp[1]-52,'vπ','fx');
+  s += AR_(pa[0],pa[1],pa[0],pa[1]+11,'fa')+D_(pa[0],pa[1],6,'fp')+T_(pa[0]+14,pa[1]+28,'vα','fx');
+  return FIG_('700 390', s, 'Τα δύο σκιασμένα τμήματα διαγράφονται σε ίσους χρόνους, άρα έχουν ίσο εμβαδόν (A₁ = A₂). Κοντά στον Ήλιο το τμήμα είναι πλατύ και κοντό, μακριά του στενό και μακρύ. Τα βέλη δείχνουν την ταχύτητα, με το μήκος τους σε κλίμακα.');
+}
+function figLog(){
+  const X0=72, X1=610, Y0=290, Y1=26, a0=.3, a1=12, t0=.2, t1=35, lg = Math.log10;
+  const mx = a => X0+(lg(a)-lg(a0))/(lg(a1)-lg(a0))*(X1-X0), my = t => Y0-(lg(t)-lg(t0))/(lg(t1)-lg(t0))*(Y0-Y1);
+  const fm = v => String(v).replace('.',',');
+  let s = '';
+  [.5,1,2,5,10].forEach(v => { s += L_(mx(v),Y0,mx(v),Y1,'fg')+T_(mx(v),Y0+18,fm(v),'ft','middle'); });
+  [.3,1,3,10,30].forEach(v => { s += L_(X0,my(v),X1,my(v),'fg')+T_(X0-9,my(v)+4,fm(v),'ft','end'); });
+  s += L_(X0,Y0,X1,Y0,'fl')+L_(X0,Y0,X0,Y1,'fl');
+  s += L_(mx(Math.pow(t0,2/3)),my(t0),mx(Math.pow(t1,2/3)),my(t1),'fa fdash');
+  KEPL_TBL.forEach(r => { s += D_(mx(r[1]),my(r[2]),5.5,'fp')+T_(mx(r[1])+10,my(r[2])+(r[1]<.5?-9:17),r[0],'ft'); });
+  s += T_(X1,Y0+38,'a (AU)','fx','end')+T_(X0+8,Y1+4,'T (έτη)','fx')+T_(mx(.42),my(9),'T = a^1,5 → ευθεία με κλίση 3/2','ft');
+  return FIG_('660 335', s, 'Οι έξι πλανήτες σε λογαριθμικούς άξονες πέφτουν πάνω στην ίδια ευθεία. Αυτό σημαίνει T ∝ a^(3/2), δηλαδή T² ∝ a³.');
+}
+function figMars(){
+  const a=140, e=.093, b=a*Math.sqrt(1-e*e), cx=200, cy=150, sx=cx+a*e;
+  let s = D_(cx,cy,a,'fd')+'<ellipse class="fl" cx="'+cx+'" cy="'+cy+'" rx="'+a+'" ry="'+N1(b)+'"/>';
+  s += D_(cx,cy,3,'fp')+T_(cx-8,cy-12,'κέντρο','ft','end')+D_(sx,cy,6,'fs')+T_(sx+10,cy+20,'Ήλιος','ft');
+  s += L_(380,100,412,100,'fl')+T_(422,104,'έλλειψη Άρη, e = 0,093','fx');
+  s += L_(380,128,412,128,'fd')+T_(422,132,'κύκλος ίδιου ημιάξονα','fx');
+  s += T_(380,172,'b = 0,9957·a','ft')+T_(380,194,'Ο Ήλιος απέχει 0,093·a από το κέντρο.','ft');
+  return FIG_('700 300', s, 'Η τροχιά του Άρη σε κλίμακα. Η έλλειψη διαφέρει από τον κύκλο λιγότερο από 0,5%, ενώ η θέση του Ήλιου ως προς το κέντρο φαίνεται καθαρά.');
+}
+
+const f1 = n => n.toFixed(3).replace('.',',');
+const KEPL_TBL = [['Ερμής',0.387,0.241],['Αφροδίτη',0.723,0.615],['Γη',1,1],['Άρης',1.524,1.881],['Δίας',5.203,11.862],['Κρόνος',9.537,29.457]];
+const AN = {
+ kepler: [
+  {h:'Το πρόβλημα', html:
+   '<p>Μέχρι το 1600 όλα τα μοντέλα, του Πτολεμαίου αλλά και του Κοπέρνικου, στηρίζονταν στην ίδια υπόθεση: οι ουράνιες κινήσεις είναι ομαλές και κυκλικές. Για να συμφωνήσουν με τις παρατηρήσεις χρειάζονταν επικύκλους.</p>'+
+   '<p>Ο Τύχο Μπράε είχε συγκεντρώσει επί δεκαετίες παρατηρήσεις των πλανητών, με ακρίβεια λίγων λεπτών τόξου και χωρίς τηλεσκόπιο. Ο Κέπλερ, βοηθός του από το 1600, πήρε τα δεδομένα μετά τον θάνατό του (1601) και δούλεψε χρόνια πάνω στην τροχιά του Άρη.</p>'+
+   '<p>Κάθε κυκλικό μοντέλο που δοκίμαζε διέφερε από τις μετρήσεις έως περίπου 8 λεπτά τόξου, γύρω στο 1/4 της φαινόμενης διαμέτρου της Σελήνης. Ο Κέπλερ δεν το θεώρησε σφάλμα, γιατί εμπιστευόταν τις μετρήσεις του Τύχο. Αντί να προσαρμόσει τα δεδομένα, άλλαξε το σχήμα της τροχιάς.</p>'},
+  {h:'1ος νόμος: ελλειπτικές τροχιές (1609)', html:
+   '<p>Κάθε πλανήτης κινείται σε έλλειψη και ο Ήλιος βρίσκεται στη μία από τις δύο εστίες της, όχι στο κέντρο.</p>'+
+   '<div class="fm">r = a·(1 − e²) / (1 + e·cosθ)<small>a: μεγάλος ημιάξονας, e: εκκεντρότητα (0 = κύκλος), θ: γωνία από το περιήλιο</small></div>'+
+   '<ul><li>Περιήλιο (πλησιέστερη θέση): r<sub>π</sub> = a·(1 − e)</li><li>Αφήλιο (απώτερη θέση): r<sub>α</sub> = a·(1 + e)</li><li>Η Γη έχει e ≈ 0,017 και ο Άρης e ≈ 0,093. Οι τροχιές είναι σχεδόν κύκλοι, γι’ αυτό και οι ελλείψεις στα σχήματα σχεδιάζονται υπερβολικά επιμήκεις.</li></ul>'+figAnatomy()},
+  {h:'2ος νόμος: ίσα εμβαδά σε ίσους χρόνους (1609)', html:
+   '<p>Η επιβατική ακτίνα που ενώνει τον Ήλιο με τον πλανήτη σαρώνει ίσα εμβαδά σε ίσα χρονικά διαστήματα. Άρα ο πλανήτης κινείται ταχύτερα κοντά στον Ήλιο και βραδύτερα μακριά του.</p>'+
+   '<div class="fm">dA/dt = ½·r·v<sub>⊥</sub> = σταθερό<small>v<sub>⊥</sub>: συνιστώσα της ταχύτητας κάθετη στην επιβατική ακτίνα</small></div>'+
+   '<ul><li>Στο περιήλιο και στο αφήλιο η ταχύτητα είναι κάθετη στην ακτίνα, οπότε r<sub>π</sub>·v<sub>π</sub> = r<sub>α</sub>·v<sub>α</sub>.</li><li>Για τη Γη: v<sub>π</sub>/v<sub>α</sub> = (1 + e)/(1 − e) ≈ 1,035. Τον Ιανουάριο, κοντά στο περιήλιο, η Γη κινείται περίπου 3,5% ταχύτερα απ’ ό,τι τον Ιούλιο.</li><li>Σήμερα το αναγνωρίζουμε ως διατήρηση της στροφορμής: η δύναμη του Ήλιου είναι κεντρική, άρα L = m·r·v<sub>⊥</sub> = σταθερό.</li></ul>'+figSectors()},
+  {h:'3ος νόμος: T² ∝ a³ (1619)', html:
+   '<p>Το τετράγωνο της περιόδου περιφοράς είναι ανάλογο του κύβου του μεγάλου ημιάξονα. Ο λόγος T²/a³ είναι ο ίδιος για όλους τους πλανήτες του Ηλιακού Συστήματος.</p>'+
+   '<div class="fm">T² = k·a³<small>Με T σε έτη και a σε αστρονομικές μονάδες (AU) ισχύει k = 1. Ο Νεύτων έδειξε ότι k = 4π² / (G·M<sub>Ήλιου</sub>).</small></div>'+
+   '<table class="an-tbl"><tr><th>Πλανήτης</th><th>a (AU)</th><th>T (έτη)</th><th>T² / a³</th></tr>'+
+   KEPL_TBL.map(r=>'<tr><td>'+r[0]+'</td><td>'+f1(r[1])+'</td><td>'+f1(r[2])+'</td><td>'+f1(r[2]*r[2]/(r[1]*r[1]*r[1]))+'</td></tr>').join('')+'</table>'+figLog()+
+   '<div class="an-calc"><span>a =</span><input id="kA" type="text" inputmode="decimal" value="1,524" aria-label="Μεγάλος ημιάξονας σε AU"><span>AU</span><span>→ T = √a³ = <b id="kT"></b> έτη</span></div>'},
+  {h:'Γιατί έχει σημασία', html:
+   '<p>Ο Κέπλερ εγκατέλειψε την ιδέα των τέλειων κύκλων που κυριαρχούσε για περίπου δύο χιλιάδες χρόνια και τη διαδέχτηκε με νόμους που προέκυψαν από μετρήσεις. Οι νόμοι δημοσιεύτηκαν στη «Νέα Αστρονομία» (1609) και στην «Αρμονία του κόσμου» (1619), ενώ οι «Ροδολφίνειοι πίνακες» (1627) επέτρεψαν να προβλέπονται οι θέσεις των πλανητών με ακρίβεια πρωτόγνωρη για την εποχή.</p>'+
+   '<p>Οι νόμοι ήταν περιγραφικοί: έλεγαν πώς κινούνται οι πλανήτες, όχι γιατί. Ο Νεύτων έδειξε το 1687 ότι και οι τρεις προκύπτουν από τον νόμο της παγκόσμιας έλξης F = G·m₁·m₂/r². Από εκεί και πέρα η ίδια θεωρία εξηγεί την πτώση ενός μήλου και την τροχιά της Σελήνης.</p>'},
+  {h:'Συνηθισμένες παρανοήσεις', html:
+   '<ul><li><b>«Ο Ήλιος είναι στο κέντρο της έλλειψης».</b> Βρίσκεται στη μία εστία.</li><li><b>«Οι εποχές οφείλονται στην απόσταση από τον Ήλιο».</b> Η Γη είναι πιο κοντά στον Ήλιο στις αρχές Ιανουαρίου, εν μέσω χειμώνα στο βόρειο ημισφαίριο. Οι εποχές οφείλονται στην κλίση του άξονα.</li><li><b>«Οι τροχιές είναι πολύ επιμήκεις».</b> Οι περισσότεροι πλανήτες έχουν e κάτω από 0,1. Το σχήμα τους είναι σχεδόν κυκλικό.</li><li><b>«Ο 3ος νόμος ισχύει μόνο για τον Ήλιο».</b> Ισχύει για κάθε σύστημα σωμάτων γύρω από κεντρική μάζα, με διαφορετική σταθερά k, π.χ. για τους δορυφόρους του Δία.</li></ul>'+figMars()}
+ ]
+};
+const AN_BIND = {
+ kepler(){
+  const i = $('kA'), o = $('kT');
+  const upd = () => { const a = parseFloat(i.value.replace(',','.')); o.textContent = (isFinite(a) && a>0) ? f1(Math.pow(a,1.5)) : '–'; };
+  i.oninput = upd; upd();
+ }
+};
 
 let raf = 0, cur = null;
 function stopAnim(){ cancelAnimationFrame(raf); raf = 0; cur = null; }
@@ -954,7 +1113,7 @@ $('poRow').innerHTML = APPS.map(a => '<a class="po'+(a[0]==='Evo'?' cur':'')+'" 
   if (!SKINS.some(k => k[0] === skin0)) skin0 = 'blueprint';
   setSkin(skin0);
   renderTabs(); renderList();
-  (function(){ const h = location.hash.slice(1).split('/'); const s = SCI.find(x => x.id===h[0]); if (s){ openSci(s.id); if (h[1]==='exp'||h[1]==='disc'){ tabNow = h[1]; renderDetail(s); } } })();
+  (function(){ const h = location.hash.slice(1).split('/'); const s = SCI.find(x => x.id===h[0]); if (s){ openSci(s.id); if (h[1]==='exp'||h[1]==='disc'||h[1]==='an'){ tabNow = h[1]; renderDetail(s); } } })();
 </script>
 </body>
 </html>
