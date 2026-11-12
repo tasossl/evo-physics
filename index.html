@@ -406,6 +406,12 @@ footer{
 .po-n{font-size:12.5px;}
 .po-s{font-size:10px;}
 @media (max-height:640px){.po-s{display:none;}.wrap{padding-bottom:120px;}}
+/* Κινητό (στενή οθόνη ή οριζόντιο κινητό): η μπάρα δεν είναι σταθερή, μπαίνει στο τέλος της σελίδας */
+@media (max-width:760px),(max-height:500px){
+  .wrap{padding-bottom:24px;}
+  .partof{position:static;margin:36px 0 0;padding:20px 0 16px;background:transparent;border-top:1px solid var(--grid);}
+  .po-s{display:block;}
+}
 
 body{background-attachment:fixed;}
 .tl{position:sticky;top:0;z-index:25;margin-top:0;padding-top:10px;background:var(--bg);background-image:repeating-linear-gradient(var(--grid) 0 1px, transparent 1px 32px),repeating-linear-gradient(90deg, var(--grid) 0 1px, transparent 1px 32px);background-attachment:fixed;}
